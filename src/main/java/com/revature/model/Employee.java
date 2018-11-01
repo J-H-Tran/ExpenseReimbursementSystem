@@ -11,13 +11,14 @@ public class Employee implements Serializable {
 	private String firName;
 	private String lasName;
 	private String emailAddr;
+	private String usrName;
 	private String passWord;
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Employee(int emplID, int jobID, String jobDescr, String firName, String lasName, String emailAddr,
-			String passWord) {
+			String usrName, String passWord) {
 		super();
 		this.emplID = emplID;
 		this.jobID = jobID;
@@ -25,6 +26,18 @@ public class Employee implements Serializable {
 		this.firName = firName;
 		this.lasName = lasName;
 		this.emailAddr = emailAddr;
+		this.usrName = usrName;
+		this.passWord = passWord;
+	}
+	public Employee(int jobID, String jobDescr, String firName, String lasName, String emailAddr,
+			String usrName, String passWord) {
+		super();
+		this.jobID = jobID;
+		this.jobDescr = jobDescr;
+		this.firName = firName;
+		this.lasName = lasName;
+		this.emailAddr = emailAddr;
+		this.usrName = usrName;
 		this.passWord = passWord;
 	}
 	public int getEmplID() {
@@ -63,6 +76,12 @@ public class Employee implements Serializable {
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
 	}
+	public String getUsrName() {
+		return usrName;
+	}
+	public void setUsrName(String usrName) {
+		this.usrName = usrName;
+	}
 	public String getPassWord() {
 		return passWord;
 	}
@@ -80,6 +99,7 @@ public class Employee implements Serializable {
 		result = prime * result + jobID;
 		result = prime * result + ((lasName == null) ? 0 : lasName.hashCode());
 		result = prime * result + ((passWord == null) ? 0 : passWord.hashCode());
+		result = prime * result + ((usrName == null) ? 0 : usrName.hashCode());
 		return result;
 	}
 	@Override
@@ -120,13 +140,18 @@ public class Employee implements Serializable {
 				return false;
 		} else if (!passWord.equals(other.passWord))
 			return false;
+		if (usrName == null) {
+			if (other.usrName != null)
+				return false;
+		} else if (!usrName.equals(other.usrName))
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Employee [emplID=" + emplID + ", jobID=" + jobID + ", jobDescr=" + jobDescr + ", firName=" + firName
-				+ ", lasName=" + lasName + ", emailAddr=" + emailAddr + ", passWord=" + passWord + "]";
+		return "ID: " + emplID + ", Work ID: " + jobID + ", Job Title: " + jobDescr 
+				+ ", Firstname: " + firName + ", Lastname: " + lasName + ", Email: " 
+				+ emailAddr + ", Username: " + usrName + ", Password: " + passWord;
 	}
-	
 	
 }

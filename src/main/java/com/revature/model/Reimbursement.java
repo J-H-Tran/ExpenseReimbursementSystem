@@ -10,16 +10,24 @@ public class Reimbursement implements Serializable {
 	private String reimbType;
 	private int reimbCost;
 	private String reimbStatus;
-	private String apprMngr;
+	private int apprMngr;
 	
 	public Reimbursement() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reimbursement(int reimbID, int emplID, String reimbType, int reimbCost, String reimbStatus,
-			String apprMngr) {
+	public Reimbursement(int reimbID, int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr) {
 		super();
 		this.reimbID = reimbID;
+		this.emplID = emplID;
+		this.reimbType = reimbType;
+		this.reimbCost = reimbCost;
+		this.reimbStatus = reimbStatus;
+		this.apprMngr = apprMngr;
+	}
+	//for sql stored procedure
+	public Reimbursement(int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr) {
+		super();
 		this.emplID = emplID;
 		this.reimbType = reimbType;
 		this.reimbCost = reimbCost;
@@ -56,17 +64,17 @@ public class Reimbursement implements Serializable {
 	public void setReimbStatus(String reimbStatus) {
 		this.reimbStatus = reimbStatus;
 	}
-	public String getApprMngr() {
+	public int getApprMngr() {
 		return apprMngr;
 	}
-	public void setApprMngr(String apprMngr) {
+	public void setApprMngr(int apprMngr) {
 		this.apprMngr = apprMngr;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((apprMngr == null) ? 0 : apprMngr.hashCode());
+		result = prime * result + apprMngr;
 		result = prime * result + emplID;
 		result = prime * result + reimbCost;
 		result = prime * result + reimbID;
@@ -83,10 +91,7 @@ public class Reimbursement implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Reimbursement other = (Reimbursement) obj;
-		if (apprMngr == null) {
-			if (other.apprMngr != null)
-				return false;
-		} else if (!apprMngr.equals(other.apprMngr))
+		if (apprMngr != other.apprMngr)
 			return false;
 		if (emplID != other.emplID)
 			return false;

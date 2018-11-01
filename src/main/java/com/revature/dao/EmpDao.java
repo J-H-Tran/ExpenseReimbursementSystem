@@ -1,11 +1,14 @@
 package com.revature.dao;
 
+import com.revature.model.Employee;
+
 public interface EmpDao {
 	
-	public void getEmpInfo();
-	public void updateEmpInfo();
+	public boolean doLogin(String username);
+	public void doLogout();
+	public void postReimbRqst();
 	public void getReimbStatus();
-	public void putReimbRqst();
-	public boolean tryLogin();
+	public Employee getEmpInfo(String username);
+	public void updateEmpInfo();
 
 }

@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Manager implements Serializable{
 
 	private static final long serialVersionUID = 5363426635806780769L;
-	private String apprMngr;
 	private int mngrID;
+	private int jobID;
 	private String jobDescr;
 	private String firName;
 	private String lasName;
@@ -17,28 +17,39 @@ public class Manager implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Manager(String apprMngr, int mngrID, String jobDescr, String firName, String lasName, String emailAddr,
+	public Manager(int mngrID, int jobID, String jobDescr, String firName, String lasName, String emailAddr,
 			String passWord) {
 		super();
-		this.apprMngr = apprMngr;
 		this.mngrID = mngrID;
+		this.jobID = jobID;
 		this.jobDescr = jobDescr;
 		this.firName = firName;
 		this.lasName = lasName;
 		this.emailAddr = emailAddr;
 		this.passWord = passWord;
 	}
-	public String getApprMngr() {
-		return apprMngr;
-	}
-	public void setApprMngr(String apprMngr) {
-		this.apprMngr = apprMngr;
+	//for sql stored procedure
+	public Manager(int jobID, String jobDescr, String firName, String lasName, String emailAddr,
+			String passWord) {
+		super();
+		this.jobID = jobID;
+		this.jobDescr = jobDescr;
+		this.firName = firName;
+		this.lasName = lasName;
+		this.emailAddr = emailAddr;
+		this.passWord = passWord;
 	}
 	public int getMngrID() {
 		return mngrID;
 	}
 	public void setMngrID(int mngrID) {
 		this.mngrID = mngrID;
+	}
+	public int getJobID() {
+		return jobID;
+	}
+	public void setJobID(int jobID) {
+		this.jobID = jobID;
 	}
 	public String getJobDescr() {
 		return jobDescr;
@@ -74,10 +85,10 @@ public class Manager implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((apprMngr == null) ? 0 : apprMngr.hashCode());
 		result = prime * result + ((emailAddr == null) ? 0 : emailAddr.hashCode());
 		result = prime * result + ((firName == null) ? 0 : firName.hashCode());
 		result = prime * result + ((jobDescr == null) ? 0 : jobDescr.hashCode());
+		result = prime * result + jobID;
 		result = prime * result + ((lasName == null) ? 0 : lasName.hashCode());
 		result = prime * result + mngrID;
 		result = prime * result + ((passWord == null) ? 0 : passWord.hashCode());
@@ -92,11 +103,6 @@ public class Manager implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Manager other = (Manager) obj;
-		if (apprMngr == null) {
-			if (other.apprMngr != null)
-				return false;
-		} else if (!apprMngr.equals(other.apprMngr))
-			return false;
 		if (emailAddr == null) {
 			if (other.emailAddr != null)
 				return false;
@@ -111,6 +117,8 @@ public class Manager implements Serializable{
 			if (other.jobDescr != null)
 				return false;
 		} else if (!jobDescr.equals(other.jobDescr))
+			return false;
+		if (jobID != other.jobID)
 			return false;
 		if (lasName == null) {
 			if (other.lasName != null)
@@ -128,7 +136,8 @@ public class Manager implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Manager [apprMngr=" + apprMngr + ", mngrID=" + mngrID + ", jobDescr=" + jobDescr + ", firName="
-				+ firName + ", lasName=" + lasName + ", emailAddr=" + emailAddr + ", passWord=" + passWord + "]";
+		return "Manager [mngrID=" + mngrID + ", jobID=" + jobID + ", jobDescr=" + jobDescr + ", firName=" + firName
+				+ ", lasName=" + lasName + ", emailAddr=" + emailAddr + ", passWord=" + passWord + "]";
 	}
+	
 }
