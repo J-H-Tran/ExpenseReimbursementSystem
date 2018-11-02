@@ -34,6 +34,20 @@ public class Reimbursement implements Serializable {
 		this.reimbStatus = reimbStatus;
 		this.apprMngr = apprMngr;
 	}
+	public Reimbursement(int emplID, String reimbType, int reimbCost, String reimbStatus) {
+		super();
+		this.emplID = emplID;
+		this.reimbType = reimbType;
+		this.reimbCost = reimbCost;
+		this.reimbStatus = reimbStatus;
+	}
+	public Reimbursement(int emplID, String reimbType, int reimbCost) {
+		super();
+		this.emplID = emplID;
+		this.reimbType = reimbType;
+		this.reimbCost = reimbCost;
+	}
+	//
 	public int getReimbID() {
 		return reimbID;
 	}
@@ -113,8 +127,8 @@ public class Reimbursement implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Reimbursement [reimbID=" + reimbID + ", emplID=" + emplID + ", reimbType=" + reimbType + ", reimbCost="
-				+ reimbCost + ", reimbStatus=" + reimbStatus + ", apprMngr=" + apprMngr + "]";
+		return "Reimbursement Info: ID = " + reimbID + ", Employee ID = " + emplID + ", Type = " + reimbType + ", Amount = $"
+				+ reimbCost + ", Status = " + reimbStatus + ", Approving Manager = " + apprMngr + "\n";
 	}
 	
 }

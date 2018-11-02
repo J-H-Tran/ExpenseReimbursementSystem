@@ -1,13 +1,17 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import com.revature.model.Employee;
+import com.revature.model.Reimbursement;
 
 public interface EmpDao {
 	
 	public boolean doLogin(String username);
 	public void doLogout();
-	public void postReimbRqst();
-	public void getReimbStatus();
+	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement);
+	public List<String> getPendingReimb(Employee employee);
+	public List<String> getApprovedReimb(Employee employee);
 	public Employee getEmpInfo(String username);
 	public void updateEmpInfo();
 

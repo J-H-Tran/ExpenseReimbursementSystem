@@ -11,14 +11,16 @@ public class Manager implements Serializable{
 	private String firName;
 	private String lasName;
 	private String emailAddr;
+	private String usrName;
 	private String passWord;
 	
 	public Manager() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Manager(int mngrID, int jobID, String jobDescr, String firName, String lasName, String emailAddr,
-			String passWord) {
+			String usrName, String passWord) {
 		super();
 		this.mngrID = mngrID;
 		this.jobID = jobID;
@@ -26,61 +28,84 @@ public class Manager implements Serializable{
 		this.firName = firName;
 		this.lasName = lasName;
 		this.emailAddr = emailAddr;
+		this.usrName = usrName;
 		this.passWord = passWord;
 	}
-	//for sql stored procedure
 	public Manager(int jobID, String jobDescr, String firName, String lasName, String emailAddr,
-			String passWord) {
+			String usrName, String passWord) {
 		super();
 		this.jobID = jobID;
 		this.jobDescr = jobDescr;
 		this.firName = firName;
 		this.lasName = lasName;
 		this.emailAddr = emailAddr;
+		this.usrName = usrName;
 		this.passWord = passWord;
 	}
 	public int getMngrID() {
 		return mngrID;
 	}
+
 	public void setMngrID(int mngrID) {
 		this.mngrID = mngrID;
 	}
+
 	public int getJobID() {
 		return jobID;
 	}
+
 	public void setJobID(int jobID) {
 		this.jobID = jobID;
 	}
+
 	public String getJobDescr() {
 		return jobDescr;
 	}
+
 	public void setJobDescr(String jobDescr) {
 		this.jobDescr = jobDescr;
 	}
+
 	public String getFirName() {
 		return firName;
 	}
+
 	public void setFirName(String firName) {
 		this.firName = firName;
 	}
+
 	public String getLasName() {
 		return lasName;
 	}
+
 	public void setLasName(String lasName) {
 		this.lasName = lasName;
 	}
+
 	public String getEmailAddr() {
 		return emailAddr;
 	}
+
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
 	}
+
+	public String getUsrName() {
+		return usrName;
+	}
+
+	public void setUsrName(String usrName) {
+		this.usrName = usrName;
+	}
+
 	public String getPassWord() {
 		return passWord;
 	}
+
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,8 +117,10 @@ public class Manager implements Serializable{
 		result = prime * result + ((lasName == null) ? 0 : lasName.hashCode());
 		result = prime * result + mngrID;
 		result = prime * result + ((passWord == null) ? 0 : passWord.hashCode());
+		result = prime * result + ((usrName == null) ? 0 : usrName.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,12 +159,20 @@ public class Manager implements Serializable{
 				return false;
 		} else if (!passWord.equals(other.passWord))
 			return false;
+		if (usrName == null) {
+			if (other.usrName != null)
+				return false;
+		} else if (!usrName.equals(other.usrName))
+			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "Manager [mngrID=" + mngrID + ", jobID=" + jobID + ", jobDescr=" + jobDescr + ", firName=" + firName
-				+ ", lasName=" + lasName + ", emailAddr=" + emailAddr + ", passWord=" + passWord + "]";
+		return "Manager Info: ID = " + mngrID + ", Work ID = " + jobID + ", Job Title = " + jobDescr + ", Firstname = " + firName
+				+ ", Lastname = " + lasName + ", Email = " + emailAddr + ", Username = " + usrName + ", Password = "
+				+ passWord + "\n";
 	}
+	
 	
 }

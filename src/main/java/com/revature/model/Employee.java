@@ -151,7 +151,7 @@ public class Employee implements Serializable {
 	public String toString() {
 		return "ID: " + emplID + ", Work ID: " + jobID + ", Job Title: " + jobDescr 
 				+ ", Firstname: " + firName + ", Lastname: " + lasName + ", Email: " 
-				+ emailAddr + ", Username: " + usrName + ", Password: " + passWord;
+				+ emailAddr + ", Username: " + usrName + ", Password: " + passWord + "\n";
 	}
 	
 }

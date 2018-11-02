@@ -28,16 +28,20 @@ public class ERSservice {
 		
 	}
 	//send reimbursement request
-	public boolean postReimbRqst() {
-		return false;
+	public boolean sendReimbRqst(Employee employee, Reimbursement reimbursement) {
+		return EmpImpDao.getImpDao().postReimbRqst(employee, reimbursement);
 	}
 	//view reimbursement status
-	public Reimbursement getReimbStatus() {
-		return null;
+	public List<String> checkPendingReimb(Employee employee) {
+		return EmpImpDao.getImpDao().getPendingReimb(employee);
+		
+	}
+	public List<String> checkApprovedReimb(Employee employee) {
+		return EmpImpDao.getImpDao().getApprovedReimb(employee);
 		
 	}
 	//viewEmpInfo
-	public Employee getEmplInfo(String username) {
+	public Employee seeEmplInfo(String username) {
 		return EmpImpDao.getImpDao().getEmpInfo(username);
 		
 	}
