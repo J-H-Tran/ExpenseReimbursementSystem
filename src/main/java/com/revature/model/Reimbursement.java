@@ -130,5 +130,8 @@ public class Reimbursement implements Serializable {
 		return "Reimbursement Info: ID = " + reimbID + ", Employee ID = " + emplID + ", Type = " + reimbType + ", Amount = $"
 				+ reimbCost + ", Status = " + reimbStatus + ", Approving Manager = " + apprMngr + "\n";
 	}
-	
+	public String toStringJoin() {
+		return "Reimbursement ID: " + reimbID + ", Type: " + reimbType + ", Amount: $"
+				+ reimbCost + ", Status: " + reimbStatus + "\n";
+	}
 }

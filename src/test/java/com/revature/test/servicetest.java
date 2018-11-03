@@ -15,7 +15,7 @@ class servicetest {
 	@Test
 	//Test employee login
 	void test() {
-		assertTrue(ERSservice.getERSservice().isValidEmplLogin("jt"));
+		assertTrue(ERSservice.getERSservice().isValidEmplLogin("jt", "jt1"));
 		
 	}
 	@Test

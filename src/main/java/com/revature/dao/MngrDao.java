@@ -9,11 +9,11 @@ public interface MngrDao {
 	
 	public boolean doLogin(String username);
 	public void doLogout();
-	public Employee getEmpInfo(String username);
+	public Employee getEmpInfo(int emplWorkID);
 	public List<String> getAllEmpInfo();
 	public List<String> getResolvingMngr();
 	public void resolveReimbRqst();
-	public List<String> getPendingReimb(Employee employee);
+	public List<String> getPendingReimb();
 	
 //	public boolean doLogin(String username);
 //	public void doLogout();

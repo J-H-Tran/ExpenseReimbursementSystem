@@ -42,6 +42,11 @@ public class Manager implements Serializable{
 		this.usrName = usrName;
 		this.passWord = passWord;
 	}
+	public Manager(String firName, String lasName) {
+		super();
+		this.firName = firName;
+		this.lasName = lasName;
+	}
 	public int getMngrID() {
 		return mngrID;
 	}
@@ -173,6 +178,8 @@ public class Manager implements Serializable{
 				+ ", Lastname = " + lasName + ", Email = " + emailAddr + ", Username = " + usrName + ", Password = "
 				+ passWord + "\n";
 	}
-	
+	public String toStringJoin() {
+		return "Approving Manager: " + firName + " " + lasName + " ";
+	}
 	
 }

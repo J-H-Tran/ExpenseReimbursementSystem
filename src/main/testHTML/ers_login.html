@@ -8,41 +8,44 @@
 
     <link rel="stylesheet" href="ers_master.css">
 <!-- links bootstrap4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-<!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- script tags bootstrap4 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
   </head>
 
 <!-- Display Content -->
   <body class="login-body">
 
       <!--<button type="button" name="button" style="background-color: dodgerblue; color: white; font-family: Arial, Helvetica, sans-serif;">Login</button>-->
-    <div id="login-container" style="vertical-align: middle;">
-      <div id="login-div2">
+    <div>
+      <div id="login-container" style="vertical-align: middle;">
+        <!-- <div class="jumbotron"> -->
 
-        <form action="/action_page.php">
-          <fieldset>
-            <legend><img id="login-logo" src="uh-engr.jpg" alt="uh engr"></legend>
-            <div class="login-field">
-              Username:
-            </div>
+          <div id="login-div2">
 
-            <input type="text" name="username" style="width: 280px"><br>
-            <div class="login-field">
-              Password:
-            </div>
-            <input type="password" name="password" style="width: 280px">
-            <br><br>
-            <!--<input type="submit" value="Submit">-->
-            <a id="login-button" href="ers_employee.html" class="login-button">Login</a>
-            <a id="forgot-pword" href="https://www.w3schools.com">Forgot Password?</a>
-          </fieldset>
-        </form>
+            <form class="container" action="/action_page.php">
+
+                <fieldset><br>
+                  <img id="login-logo" src="uh-engr.jpg" alt="uh engr">
+                  <div class="login-field">
+                    <!-- Username: -->
+                  </div>
+                  <br>
+                  <input id="u-name" type="text" name="username" placeholder=" Username" style="width: 280px"><br>
+                  <div class="login-field">
+                    <!-- Password: -->
+                  </div>
+                  <br>
+                  <input type="password" name="password" placeholder=" Password"style="width: 280px">
+                  <br><br>
+                  <!--<input type="submit" value="Submit">-->
+                  <a id="login-button" href="ers_employee.html" class="login-button">Login</a>
+                  <br>
+                  <a id="forgot-pword" href="https://www.w3schools.com">Forgot Password?</a>
+                </fieldset>
+            </form>
+          </div>
+        <!-- </div> -->
       </div>
     </div>
-
   </body>
 </html>

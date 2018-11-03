@@ -40,6 +40,13 @@ public class Employee implements Serializable {
 		this.usrName = usrName;
 		this.passWord = passWord;
 	}
+	public Employee(int jobID, String firName, String lasName, String emailAddr) {
+		super();
+		this.jobID = jobID;
+		this.firName = firName;
+		this.lasName = lasName;
+		this.emailAddr = emailAddr;
+	}
 	public int getEmplID() {
 		return emplID;
 	}
@@ -149,9 +156,13 @@ public class Employee implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "ID: " + emplID + ", Work ID: " + jobID + ", Job Title: " + jobDescr 
+		return "Employee Info: ID: " + emplID + ", Work ID: " + jobID + ", Job Title: " + jobDescr 
 				+ ", Firstname: " + firName + ", Lastname: " + lasName + ", Email: " 
 				+ emailAddr + ", Username: " + usrName + ", Password: " + passWord + "\n";
+	}
+	public String toStringJoin() {
+		return "Employee ID: " + jobID + ", Employee name: " + firName + " " + lasName + ", Email: " 
+				+ emailAddr + " ";
 	}
 	
 }

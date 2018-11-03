@@ -15,6 +15,7 @@ import com.revature.model.Reimbursement;
 import com.revature.util.ConnectionUtil;
 
 public class EmpImpDao implements EmpDao{
+	private static ConnectionUtil cu = ConnectionUtil.getInstance();
 	private static EmpImpDao emplDao;
 	final static Logger log = Logger.getLogger(EmpImpDao.class);
 	
@@ -25,11 +26,36 @@ public class EmpImpDao implements EmpDao{
 		}
 		return emplDao;
 	}
+	
+	public static void main(String[] args) {
+		Employee empl = new Employee();
+//		Reimbursement reimb = new Reimbursement();
+//		System.out.println(getImpDao().getEmpInfo("jt"));
+		System.out.println(getImpDao().doLogin("lt", "lt1"));
+//		empl.setEmplID(1);
+//		System.out.println(getImpDao().getApprovedReimb(empl));
+//		System.out.println(getImpDao().getPendingReimb(empl));
+		
+//		cs.setInt(1, employee.getEmplID());
+//		cs.setString(2, reimbursement.getReimbType());
+//		cs.setInt(3, reimbursement.getReimbCost());
+//		empl.setEmplID(1);
+//		reimb.setReimbCost(777);
+//		reimb.setReimbType("PTO");
+//		System.out.println(getImpDao().postReimbRqst(empl, reimb));
+		
+		
+	}
+	
 	public boolean verifyReimb() {
 		String usrStr = "";
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
 		try { 
 			log.info("Checking success of reimbursement request");
-			Connection conn = ConnectionUtil.getConnection();
+//			Connection conn = ConnectionUtil.getConnection();
 			String sql = "SELECT * FROM REIMB_TABLE WHERE R_STATUS = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "pending");
@@ -49,20 +75,34 @@ public class EmpImpDao implements EmpDao{
 		return false;
 	}
 	@Override
-	public boolean doLogin(String username) {
-		String usrStr = "";
+	public boolean doLogin(String username, String password) {
+		String uName = "";
+		String pWord = "";
+		String jDescr = "";
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
 		try { 
 			log.info("User attempted to login, check if user exists in database.");
-			Connection conn = ConnectionUtil.getConnection();
-			String sql = "SELECT * FROM EMPL_TABLE WHERE E_USERNAME = ?";
+//			Connection conn = ConnectionUtil.getConnection();
+			String sql = "select * from empl_table where e_username = ? and e_pword = ? "
+					+ "union select * from mngr_table where m_username = ? and m_pword = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.setString(3, username);
+			pstmt.setString(4, password);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			while (rs.next()) { usrStr = rs.getString("E_USERNAME");
+			while (rs.next()) { 
+				uName = rs.getString("E_USERNAME");
+				pWord = rs.getString("e_lastname");
+				jDescr = rs.getString("e_position");
 			}
-			if (usrStr.equals(username)) {
+			System.out.println(jDescr);
+			if (uName.equals(username)) {
 				log.info("User exists in database");
 				return true;
 			}
@@ -81,7 +121,10 @@ public class EmpImpDao implements EmpDao{
 	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement) {
 		log.info("Submitting reimbursement request into database");
 		
-		try (Connection conn = ConnectionUtil.getConnection()) {
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
 			String storeProcs = "CALL ADD_REIMB(?, ?, ?)";
 			CallableStatement cs = conn.prepareCall(storeProcs);
 			
@@ -108,7 +151,10 @@ public class EmpImpDao implements EmpDao{
 	public List<String> getPendingReimb(Employee employee) {
 		List<String> reimbList = new ArrayList<>();
 		
-		try (Connection conn = ConnectionUtil.getConnection()) {
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
 			log.info("Retreiving user info");
 			String sql = "SELECT * FROM REIMB_TABLE WHERE E_ID = ? AND R_STATUS = ?";
 	
@@ -143,7 +189,10 @@ public class EmpImpDao implements EmpDao{
 	public List<String> getApprovedReimb(Employee employee) {
 		List<String> reimbList = new ArrayList<>();
 		
-		try (Connection conn = ConnectionUtil.getConnection()) {
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
 			log.info("Retreiving user info");
 			String sql = "SELECT * FROM REIMB_TABLE WHERE E_ID = ? AND R_STATUS = ?";
 	
@@ -174,10 +223,50 @@ public class EmpImpDao implements EmpDao{
 		log.warn("Failed to get user info");
 		return reimbList;
 	}
+	public List<String> getAllReimb(Employee employee) {
+		List<String> reimbList = new ArrayList<>();
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
+			log.info("Retreiving user info");
+			String sql = "SELECT * FROM REIMB_TABLE WHERE E_ID = ?";
+	
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, employee.getEmplID());
+			
+			ResultSet rs = pstmt.executeQuery();
+			//int reimbID, int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr
+			while (rs.next()) {
+				log.info("did the while loop execute?");
+				reimbList.add(new Reimbursement(
+						rs.getInt("R_ID"),
+						rs.getInt("E_ID"),
+						rs.getString("R_TYPE"),
+						rs.getInt("R_COST"),
+						rs.getString("R_STATUS"),
+						rs.getInt("M_ID")).toString() 
+						);
+			}
+			return reimbList;
+		} catch (SQLException s) {
+			log.error("Exception in getUser thrown");
+			s.getMessage();
+		} finally {
+			log.warn("getUser - executed finally block");
+		}
+		log.warn("Failed to get user info");
+		return reimbList;
+	}
 	@Override
 	public Employee getEmpInfo(String username) {
 		Employee empl = new Employee();
-		try (Connection conn = ConnectionUtil.getConnection()) {
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try {
 			log.info("Retreiving user info");
 			String sql = "SELECT * FROM EMPL_TABLE WHERE E_USERNAME = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -208,14 +297,9 @@ public class EmpImpDao implements EmpDao{
 		return new Employee();
 	}
 	@Override
-	public void updateEmpInfo() {
+	public boolean updateEmpInfo(Employee employee) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
-//	public static void main(String[] args) {
-//		
-//		Employee empl = new Employee();
-//		empl.setEmplID(1);
-//		System.out.println(getImpDao().getApprovedReimb(empl));
-//	}
+	
 }

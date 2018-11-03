@@ -20,8 +20,8 @@ public class ERSservice {
 	}
 	//EMPLOYEE DAO
 	//verify user name and password
-	public boolean isValidEmplLogin(String username) {
-		return EmpImpDao.getImpDao().doLogin(username);
+	public boolean isValidEmplLogin(String username, String password) {
+		return EmpImpDao.getImpDao().doLogin(username, password);
 		
 	}
 	public void logoutEmpl() {
