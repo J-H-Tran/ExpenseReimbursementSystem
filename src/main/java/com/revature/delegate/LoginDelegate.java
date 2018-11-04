@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.revature.beans.Login;
 import com.revature.data.LoginDao;
 import com.revature.data.LoginOracle;
+import com.revature.model.Employee;
 
 public class LoginDelegate {
 	public LoginDao ld = new LoginOracle();
@@ -17,13 +18,16 @@ public class LoginDelegate {
 	public void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String username = req.getParameter("user");
 		String password = req.getParameter("pass");
-		Login login = ld.login(username, password);
+		
+		Employee login = ld.login(username, password);
+		
 		if(login == null) {
-			resp.sendRedirect("login");
-		} else {
+			resp.sendRedirect("/ExpenseReimbursementSystem/static/index.html");
+		} 
+		else if(login.getJobDescr().compareToIgnoreCase("employee") == 0){
 			HttpSession session = req.getSession();
 			session.setAttribute("user", login);
-			resp.sendRedirect("home");
+			resp.sendRedirect("/ExpenseReimbursementSystem/static/ers_employee.html");
 		}
 	}
 	

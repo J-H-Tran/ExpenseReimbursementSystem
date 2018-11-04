@@ -12,7 +12,7 @@ import com.revature.service.ERSservice;
 
 public class ExpReimbSys {
     public static void main( String[] args ) throws SQLException {
-    	List<String> arrList = new ArrayList<>();
+    	/*List<String> arrList = new ArrayList<>();
 //        Employee employee = new Employee(1, 3000, "employee", "j", "t", "jt@email.com", "jt", "jt1");
 //        Reimbursement reimbursement = new Reimbursement(6, 1, "foood", 1000, "approved", 1);
         //System.out.println(ERSservice.getUserService().isValidEmplLogin("jt"));
@@ -37,6 +37,7 @@ public class ExpReimbSys {
     	}
     	for (String str: ERSservice.getERSservice().checkPendingReimb(empl)) {
     		System.out.print(str);
-    	}
+    	}*/
+    	
     }
 }

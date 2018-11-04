@@ -1,1 +1,46 @@
-hello
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>ers-login-page</title>
+
+	<link rel="stylesheet" href="./css/ers_master.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body class="login-body">
+	<div id="login-container" style="vertical-align: middle;">
+          <div id="login-div2">
+            <form class="container-fluid" action="../login" method="post">
+                <fieldset><br>
+                  <img id="login-logo" src="./img/uh-engr.jpg" alt="uh engr"><br>
+                  <br>
+										<input class="form-control" type="text" name="user" placeholder="Enter Username" style="width: 280px">
+									<br>
+	                  <input class="form-control" type="password" name="pass" placeholder="Enter Password"style="width: 280px">
+	                <br>
+                  <!--<input type="submit" value="Submit">-->
+                  <input id="login-button" type="submit" value="Login">
+                  <br>
+                  <a id="forgot-pword" href="https://www.w3schools.com">Forgot Password?</a>
+                </fieldset>
+            </form>
+          </div>
+     </div>
+	<!-- <form action="login" method="post">
+		Username: <input type="text" name="user"/> <br>
+		Password: <input type="password" name="pass"/> <br>
+		<input type="submit" value="Login"/>
+	</form> -->
+</body>
+</html>

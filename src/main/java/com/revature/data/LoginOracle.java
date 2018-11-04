@@ -6,18 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.beans.Login;
+import com.revature.model.Employee;
 import com.revature.util.ConnectionUtil;
 
 public class LoginOracle implements LoginDao {
 	private static ConnectionUtil cu = ConnectionUtil.getInstance();
 	
 	@Override
-	public Login login(String username, String password) {
-		Login login = null;
+	public Employee login(String username, String password) {
+
 		Connection conn = null;
 		conn = cu.getConnection();
-		String sql = "Select username, password, fav_color from login "
-				+ "where username = ? and password =?";
+		String sql = "Select * from empl_table "
+				+ "where e_username = ? and e_password =?";
 		
 		
 		try {
@@ -27,13 +28,20 @@ public class LoginOracle implements LoginDao {
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				login = new Login(rs.getString("username"),
-						rs.getString("password"),
-						rs.getString("fav_color"));
+				return new Employee(
+						rs.getInt("E_ID"), 
+						rs.getInt("E_JOB_ID"), 
+						rs.getString("E_POSITION"), 
+						rs.getString("E_FIRSTNAME"), 
+						rs.getString("E_LASTNAME"), 
+						rs.getString("E_EMAIL"), 
+						rs.getString("E_USERNAME"), 
+						rs.getString("e_password")
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return login;
+		return null;
 	}
 }
