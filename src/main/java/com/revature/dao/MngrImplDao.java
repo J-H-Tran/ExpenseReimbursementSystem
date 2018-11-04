@@ -36,14 +36,14 @@ public class MngrImplDao implements MngrDao{
 //		mngr.setUsrName("jt");
 //		System.out.println(getMngrDao().doLogin(mngr.getUsrName()));
 //		System.out.println();
-		for (String str: getMngrDao().getAllEmpInfo()) {
-    		System.out.print(str);
-    	}
-//		System.out.println(getMngrDao().getEmpInfo(3000));
-//		System.out.println();
-//		for (String str: getMngrDao().getPendingReimb()) {
+//		for (String str: getMngrDao().getAllEmpInfo()) {
 //    		System.out.print(str);
 //    	}
+//		System.out.println(getMngrDao().getEmpInfo(3000));
+//		System.out.println();
+		for (String str: getMngrDao().getPendingReimb()) {
+    		System.out.print(str);
+    	}
 //		for (String str: getMngrDao().getResolvingMngr()) {
 //    		System.out.print(str);
 //    	}
@@ -57,7 +57,7 @@ public class MngrImplDao implements MngrDao{
 		
 		try { 
 			log.info("Manager attempted to login, check if user exists in database.");
-			String sql = "SELECT * FROM mngr_table WHERE m_USERNAME = ?";
+			String sql = "SELECT * FROM empl_table WHERE e_USERNAME = ? and e_password = ? and e_position";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
 			
@@ -105,7 +105,7 @@ public class MngrImplDao implements MngrDao{
 						rs.getString("E_LASTNAME"), 
 						rs.getString("E_EMAIL"), 
 						rs.getString("E_USERNAME"), 
-						rs.getString("E_PWORD"));
+						rs.getString("e_password"));
 			}
 			return empl;
 		} catch (SQLException s) {
@@ -126,8 +126,9 @@ public class MngrImplDao implements MngrDao{
 		
 		try {
 			log.info("Retreiving all users info");
-			String sql = "select * from empl_table";
+			String sql = "select * from empl_table where e_position = ?";
 			PreparedStatement ptmt = conn.prepareStatement(sql);
+			ptmt.setString(1, "employee");
 			ResultSet rs = ptmt.executeQuery();
 			
 			while (rs.next()) {
@@ -139,7 +140,7 @@ public class MngrImplDao implements MngrDao{
 						rs.getString("E_LASTNAME"), 
 						rs.getString("E_EMAIL"), 
 						rs.getString("E_USERNAME"), 
-						rs.getString("E_PWORD")).toString());
+						rs.getString("e_password")).toString());
 			} 
 			return allEmpl;
 		} catch (SQLException s) {
@@ -159,30 +160,29 @@ public class MngrImplDao implements MngrDao{
 		
 		try {
 			log.info("Retreiving user info");
-			String sql = "SELECT m_firstname, m_lastname, e_job_id, e_firstname, e_lastname, e_email, r_id, r_type, r_cost, r_status " + 
-					"FROM reimb_table " + 
-					"LEFT JOIN mngr_table ON reimb_table.m_id = mngr_table.m_id " + 
-					"left join empl_table on reimb_table.e_id = empl_table.e_id " + 
-					"where r_status = 'approved' order by r_id";
+			String sql = "SELECT et.e_job_id, et.e_firstname, et.e_lastname, et.e_email, r.r_id as rt, r.r_type, r.r_cost, r.r_status, "
+					+ "mt.e_firstname as m_firstname, mt.e_lastname as m_lastname FROM reimb_table r LEFT JOIN empl_table et ON et.e_id = r.e_id "
+					+ "left join empl_table mt on mt.e_id = r.m_id where r_status =?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "approved");
 			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				log.info("did the while loop execute?");
 				resolvedList.add(
-						new Manager(
-								rs.getString("m_firstname"),
-								rs.getString("m_lastname")).toStringJoin() 
-						+ new Employee(
+						new Employee(
 								rs.getInt("e_job_id"),
 								rs.getString("e_firstname"),
 								rs.getString("e_lastname"),
 								rs.getString("e_email")).toStringJoin()
 						+ new Reimbursement(
-								rs.getInt("r_id"),
+								rs.getInt("rt"),
 								rs.getString("r_type"),
 								rs.getInt("r_cost"),
 								rs.getString("r_status")).toStringJoin()
+						+ new Manager(
+								rs.getString("m_firstname"),
+								rs.getString("m_lastname")).toStringJoin() 
 					);
 			}
 			return resolvedList;

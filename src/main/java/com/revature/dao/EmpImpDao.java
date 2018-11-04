@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
@@ -27,11 +28,11 @@ public class EmpImpDao implements EmpDao{
 		return emplDao;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Employee empl = new Employee();
 //		Reimbursement reimb = new Reimbursement();
 //		System.out.println(getImpDao().getEmpInfo("jt"));
-		System.out.println(getImpDao().doLogin("lt", "lt1"));
+		System.out.println(getImpDao().doLogin("ltt", "lt1"));
 //		empl.setEmplID(1);
 //		System.out.println(getImpDao().getApprovedReimb(empl));
 //		System.out.println(getImpDao().getPendingReimb(empl));
@@ -47,7 +48,7 @@ public class EmpImpDao implements EmpDao{
 		
 	}
 	
-	public boolean verifyReimb() {
+	public boolean verifyReimb() throws SQLException {
 		String usrStr = "";
 		
 		Connection conn = null;
@@ -75,7 +76,7 @@ public class EmpImpDao implements EmpDao{
 		return false;
 	}
 	@Override
-	public boolean doLogin(String username, String password) {
+	public boolean doLogin(String username, String password) throws SQLException {
 		String uName = "";
 		String pWord = "";
 		String jDescr = "";
@@ -86,24 +87,26 @@ public class EmpImpDao implements EmpDao{
 		try { 
 			log.info("User attempted to login, check if user exists in database.");
 //			Connection conn = ConnectionUtil.getConnection();
-			String sql = "select * from empl_table where e_username = ? and e_pword = ? "
-					+ "union select * from mngr_table where m_username = ? and m_pword = ?";
+			String sql = "SELECT * FROM empl_table WHERE e_USERNAME = ? and e_password = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
-			pstmt.setString(3, username);
-			pstmt.setString(4, password);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) { 
-				uName = rs.getString("E_USERNAME");
-				pWord = rs.getString("e_lastname");
 				jDescr = rs.getString("e_position");
 			}
 			System.out.println(jDescr);
-			if (uName.equals(username)) {
+			if (jDescr.equals("manager")) {
+				// go to manager login
+				System.out.println("user is a manager");
 				log.info("User exists in database");
+				return true;
+			}
+			else {
+				System.out.println("user is an employee");
+				// go to employee login
 				return true;
 			}
 		}catch (Exception e) {
@@ -118,7 +121,7 @@ public class EmpImpDao implements EmpDao{
 		
 	}
 	@Override
-	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement) {
+	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement) throws SQLException {
 		log.info("Submitting reimbursement request into database");
 		
 		Connection conn = null;
@@ -148,7 +151,7 @@ public class EmpImpDao implements EmpDao{
 		return false;
 	}
 	@Override
-	public List<String> getPendingReimb(Employee employee) {
+	public List<String> getPendingReimb(Employee employee) throws SQLException {
 		List<String> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
@@ -186,7 +189,7 @@ public class EmpImpDao implements EmpDao{
 		return reimbList;
 	}
 	@Override
-	public List<String> getApprovedReimb(Employee employee) {
+	public List<String> getApprovedReimb(Employee employee) throws SQLException {
 		List<String> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
@@ -223,7 +226,7 @@ public class EmpImpDao implements EmpDao{
 		log.warn("Failed to get user info");
 		return reimbList;
 	}
-	public List<String> getAllReimb(Employee employee) {
+	public List<String> getAllReimb(Employee employee) throws SQLException {
 		List<String> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
@@ -260,7 +263,7 @@ public class EmpImpDao implements EmpDao{
 		return reimbList;
 	}
 	@Override
-	public Employee getEmpInfo(String username) {
+	public Employee getEmpInfo(String username) throws SQLException {
 		Employee empl = new Employee();
 		
 		Connection conn = null;
@@ -284,7 +287,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getString("E_LASTNAME"), 
 						rs.getString("E_EMAIL"), 
 						rs.getString("E_USERNAME"), 
-						rs.getString("E_PWORD"));
+						rs.getString("e_password"));
 			}
 			return empl;
 		} catch (SQLException s) {

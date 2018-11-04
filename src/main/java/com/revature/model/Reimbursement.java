@@ -34,9 +34,9 @@ public class Reimbursement implements Serializable {
 		this.reimbStatus = reimbStatus;
 		this.apprMngr = apprMngr;
 	}
-	public Reimbursement(int emplID, String reimbType, int reimbCost, String reimbStatus) {
+	public Reimbursement(int reimblID, String reimbType, int reimbCost, String reimbStatus) {
 		super();
-		this.emplID = emplID;
+		this.reimbID = reimblID;
 		this.reimbType = reimbType;
 		this.reimbCost = reimbCost;
 		this.reimbStatus = reimbStatus;
@@ -132,6 +132,6 @@ public class Reimbursement implements Serializable {
 	}
 	public String toStringJoin() {
 		return "Reimbursement ID: " + reimbID + ", Type: " + reimbType + ", Amount: $"
-				+ reimbCost + ", Status: " + reimbStatus + "\n";
+				+ reimbCost + ", Status: " + reimbStatus + " ";
 	}
 }

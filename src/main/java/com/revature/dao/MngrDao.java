@@ -15,11 +15,4 @@ public interface MngrDao {
 	public void resolveReimbRqst();
 	public List<String> getPendingReimb();
 	
-//	public boolean doLogin(String username);
-//	public void doLogout();
-//	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement);
-//	public List<String> getPendingReimb(Employee employee);
-//	public List<String> getApprovedReimb(Employee employee);
-//	public Employee getEmpInfo(String username);
-//	public void updateEmpInfo();
 }

@@ -2,6 +2,7 @@ package com.revature.app;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import com.revature.model.Reimbursement;
 import com.revature.service.ERSservice;
 
 public class ExpReimbSys {
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws SQLException {
     	List<String> arrList = new ArrayList<>();
 //        Employee employee = new Employee(1, 3000, "employee", "j", "t", "jt@email.com", "jt", "jt1");
 //        Reimbursement reimbursement = new Reimbursement(6, 1, "foood", 1000, "approved", 1);

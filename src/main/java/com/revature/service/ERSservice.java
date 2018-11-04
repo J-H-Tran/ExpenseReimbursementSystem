@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.revature.dao.EmpImpDao;
@@ -20,7 +21,7 @@ public class ERSservice {
 	}
 	//EMPLOYEE DAO
 	//verify user name and password
-	public boolean isValidEmplLogin(String username, String password) {
+	public boolean isValidEmplLogin(String username, String password) throws SQLException {
 		return EmpImpDao.getImpDao().doLogin(username, password);
 		
 	}
@@ -28,20 +29,20 @@ public class ERSservice {
 		
 	}
 	//send reimbursement request
-	public boolean sendReimbRqst(Employee employee, Reimbursement reimbursement) {
+	public boolean sendReimbRqst(Employee employee, Reimbursement reimbursement) throws SQLException {
 		return EmpImpDao.getImpDao().postReimbRqst(employee, reimbursement);
 	}
 	//view reimbursement status
-	public List<String> checkPendingReimb(Employee employee) {
+	public List<String> checkPendingReimb(Employee employee) throws SQLException {
 		return EmpImpDao.getImpDao().getPendingReimb(employee);
 		
 	}
-	public List<String> checkApprovedReimb(Employee employee) {
+	public List<String> checkApprovedReimb(Employee employee) throws SQLException {
 		return EmpImpDao.getImpDao().getApprovedReimb(employee);
 		
 	}
 	//viewEmpInfo
-	public Employee seeEmplInfo(String username) {
+	public Employee seeEmplInfo(String username) throws SQLException {
 		return EmpImpDao.getImpDao().getEmpInfo(username);
 		
 	}

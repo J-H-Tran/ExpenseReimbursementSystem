@@ -179,7 +179,7 @@ public class Manager implements Serializable{
 				+ passWord + "\n";
 	}
 	public String toStringJoin() {
-		return "Approving Manager: " + firName + " " + lasName + " ";
+		return "Approving Manager: " + firName + " " + lasName + "\n";
 	}
 	
 }
