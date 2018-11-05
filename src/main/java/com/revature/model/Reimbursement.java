@@ -8,7 +8,7 @@ public class Reimbursement implements Serializable {
 	private int reimbID;
 	private int emplID;
 	private String reimbType;
-	private int reimbCost;
+	private double reimbCost;
 	private String reimbStatus;
 	private int apprMngr;
 	
@@ -16,7 +16,7 @@ public class Reimbursement implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reimbursement(int reimbID, int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr) {
+	public Reimbursement(int reimbID, int emplID, String reimbType, double reimbCost, String reimbStatus, int apprMngr) {
 		super();
 		this.reimbID = reimbID;
 		this.emplID = emplID;
@@ -26,7 +26,7 @@ public class Reimbursement implements Serializable {
 		this.apprMngr = apprMngr;
 	}
 	//for sql stored procedure
-	public Reimbursement(int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr) {
+	public Reimbursement(int emplID, String reimbType, double reimbCost, String reimbStatus, int apprMngr) {
 		super();
 		this.emplID = emplID;
 		this.reimbType = reimbType;
@@ -34,14 +34,14 @@ public class Reimbursement implements Serializable {
 		this.reimbStatus = reimbStatus;
 		this.apprMngr = apprMngr;
 	}
-	public Reimbursement(int reimblID, String reimbType, int reimbCost, String reimbStatus) {
+	public Reimbursement(int reimblID, String reimbType, double reimbCost, String reimbStatus) {
 		super();
 		this.reimbID = reimblID;
 		this.reimbType = reimbType;
 		this.reimbCost = reimbCost;
 		this.reimbStatus = reimbStatus;
 	}
-	public Reimbursement(int emplID, String reimbType, int reimbCost) {
+	public Reimbursement(int emplID, String reimbType, double reimbCost) {
 		super();
 		this.emplID = emplID;
 		this.reimbType = reimbType;
@@ -66,10 +66,10 @@ public class Reimbursement implements Serializable {
 	public void setReimbType(String reimbType) {
 		this.reimbType = reimbType;
 	}
-	public int getReimbCost() {
+	public double getReimbCost() {
 		return reimbCost;
 	}
-	public void setReimbCost(int reimbCost) {
+	public void setReimbCost(double reimbCost) {
 		this.reimbCost = reimbCost;
 	}
 	public String getReimbStatus() {
@@ -84,13 +84,16 @@ public class Reimbursement implements Serializable {
 	public void setApprMngr(int apprMngr) {
 		this.apprMngr = apprMngr;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + apprMngr;
 		result = prime * result + emplID;
-		result = prime * result + reimbCost;
+		long temp;
+		temp = Double.doubleToLongBits(reimbCost);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + reimbID;
 		result = prime * result + ((reimbStatus == null) ? 0 : reimbStatus.hashCode());
 		result = prime * result + ((reimbType == null) ? 0 : reimbType.hashCode());
@@ -109,7 +112,7 @@ public class Reimbursement implements Serializable {
 			return false;
 		if (emplID != other.emplID)
 			return false;
-		if (reimbCost != other.reimbCost)
+		if (Double.doubleToLongBits(reimbCost) != Double.doubleToLongBits(other.reimbCost))
 			return false;
 		if (reimbID != other.reimbID)
 			return false;

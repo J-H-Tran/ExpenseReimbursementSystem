@@ -27,7 +27,7 @@ public class MngrImplDao implements MngrDao{
 		}
 		return mngrDao;
 	}
-// ******************************* MAIN *********************************************
+// ******************************* BEGIN MAIN *************************************
 	public static void main(String[] args) {
 		Manager mngr = new Manager();
 //		for (String str: getMngrDao().getAllEmpInfo()) {
@@ -48,6 +48,7 @@ public class MngrImplDao implements MngrDao{
 //    		System.out.print(str);
 //    	}
 	}
+// *******************************  END MAIN  *************************************
 	@Override
 	public boolean doLogin(String username) {
 		String usrStr = "";
@@ -178,7 +179,7 @@ public class MngrImplDao implements MngrDao{
 						+ new Reimbursement(
 								rs.getInt("rt"),
 								rs.getString("r_type"),
-								rs.getInt("r_cost"),
+								rs.getDouble("r_cost"),
 								rs.getString("r_status")).toStringJoin()
 						+ new Manager(
 								rs.getString("m_firstname"),
@@ -221,7 +222,7 @@ public class MngrImplDao implements MngrDao{
 						rs.getInt("R_ID"),
 						rs.getInt("E_ID"),
 						rs.getString("R_TYPE"),
-						rs.getInt("R_COST"),
+						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
 						rs.getInt("M_ID")).toString() 
 						);

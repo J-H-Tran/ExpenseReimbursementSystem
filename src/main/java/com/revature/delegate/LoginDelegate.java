@@ -33,9 +33,11 @@ public class LoginDelegate {
 	
 	public void getPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		if(session.getAttribute("user")==null) {
+		
+		if(session.getAttribute("user") == null) {
 			req.getRequestDispatcher("static/login.html").forward(req,resp);
-		} else {
+		} 
+		else {
 			resp.sendRedirect("home");
 		}
 	}

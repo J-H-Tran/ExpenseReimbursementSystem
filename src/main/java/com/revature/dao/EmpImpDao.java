@@ -27,19 +27,19 @@ public class EmpImpDao implements EmpDao{
 		}
 		return emplDao;
 	}
-	
+// ************************* BEGIN MAIN **********************************
 	public static void main(String[] args) throws SQLException {
 		Employee empl = new Employee();
 //		Reimbursement reimb = new Reimbursement();
 //		System.out.println(getImpDao().getEmpInfo("jt"));
-		System.out.println(getImpDao().doLogin("ltt", "lt1"));
-//		empl.setEmplID(1);
-//		System.out.println(getImpDao().getApprovedReimb(empl));
+//		System.out.println(getImpDao().doLogin("ltt", "lt1"));
+		empl.setEmplID(101);
+		System.out.println(getImpDao().getApprovedReimb(empl));
 //		System.out.println(getImpDao().getPendingReimb(empl));
 		
-//		cs.setInt(1, employee.getEmplID());
+//		cs.setDouble(1, employee.getEmplID());
 //		cs.setString(2, reimbursement.getReimbType());
-//		cs.setInt(3, reimbursement.getReimbCost());
+//		cs.setDouble(3, reimbursement.getReimbCost());
 //		empl.setEmplID(1);
 //		reimb.setReimbCost(777);
 //		reimb.setReimbType("PTO");
@@ -47,7 +47,7 @@ public class EmpImpDao implements EmpDao{
 		
 		
 	}
-	
+// *************************  END MAIN  **********************************
 	public boolean verifyReimb() throws SQLException {
 		String usrStr = "";
 		
@@ -133,7 +133,7 @@ public class EmpImpDao implements EmpDao{
 			
 			cs.setInt(1, employee.getEmplID());
 			cs.setString(2, reimbursement.getReimbType());
-			cs.setInt(3, reimbursement.getReimbCost());
+			cs.setDouble(3, reimbursement.getReimbCost());
 			
 			cs.executeUpdate();
 			
@@ -173,7 +173,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getInt("R_ID"),
 						rs.getInt("E_ID"),
 						rs.getString("R_TYPE"),
-						rs.getInt("R_COST"),
+						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
 						rs.getInt("M_ID")).toString() 
 						);
@@ -211,7 +211,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getInt("R_ID"),
 						rs.getInt("E_ID"),
 						rs.getString("R_TYPE"),
-						rs.getInt("R_COST"),
+						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
 						rs.getInt("M_ID")).toString() 
 						);
@@ -247,7 +247,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getInt("R_ID"),
 						rs.getInt("E_ID"),
 						rs.getString("R_TYPE"),
-						rs.getInt("R_COST"),
+						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
 						rs.getInt("M_ID")).toString() 
 						);
@@ -304,5 +304,4 @@ public class EmpImpDao implements EmpDao{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 }

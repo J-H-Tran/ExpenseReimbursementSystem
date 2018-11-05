@@ -17,8 +17,7 @@ public class LoginOracle implements LoginDao {
 
 		Connection conn = null;
 		conn = cu.getConnection();
-		String sql = "Select * from empl_table "
-				+ "where e_username = ? and e_password =?";
+		String sql = "Select * from empl_table where e_username = ? and e_password = ?";
 		
 		
 		try {

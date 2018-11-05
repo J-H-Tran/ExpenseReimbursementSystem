@@ -15,10 +15,11 @@ public class FrontController extends DefaultServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(req.getRequestURI().substring(req.getContextPath().length())
-				.startsWith("/static/")) {
+		
+		if(req.getRequestURI().substring(req.getContextPath().length()).startsWith("/static/")) {
 			super.doGet(req, resp);
-		} else {
+		} 
+		else {
 			rh.process(req, resp);
 		}
 	}
