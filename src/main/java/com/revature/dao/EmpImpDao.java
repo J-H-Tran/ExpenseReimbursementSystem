@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -28,7 +28,7 @@ public class EmpImpDao implements EmpDao{
 		return emplDao;
 	}
 // ************************* BEGIN MAIN **********************************
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 		Employee empl = new Employee();
 //		Reimbursement reimb = new Reimbursement();
 //		System.out.println(getImpDao().getEmpInfo("jt"));
@@ -48,7 +48,7 @@ public class EmpImpDao implements EmpDao{
 		
 	}
 // *************************  END MAIN  **********************************
-	public boolean verifyReimb() throws SQLException {
+	public boolean verifyReimb() {
 		String usrStr = "";
 		
 		Connection conn = null;
@@ -76,7 +76,7 @@ public class EmpImpDao implements EmpDao{
 		return false;
 	}
 	@Override
-	public boolean doLogin(String username, String password) throws SQLException {
+	public boolean doLogin(String username, String password) {
 		String uName = "";
 		String pWord = "";
 		String jDescr = "";
@@ -121,7 +121,7 @@ public class EmpImpDao implements EmpDao{
 		
 	}
 	@Override
-	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement) throws SQLException {
+	public boolean postReimbRqst(Employee employee, Reimbursement reimbursement) {
 		log.info("Submitting reimbursement request into database");
 		
 		Connection conn = null;
@@ -151,8 +151,8 @@ public class EmpImpDao implements EmpDao{
 		return false;
 	}
 	@Override
-	public List<String> getPendingReimb(Employee employee) throws SQLException {
-		List<String> reimbList = new ArrayList<>();
+	public ArrayList<Reimbursement> getPendingReimb(Employee employee) {
+		ArrayList<Reimbursement> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -175,7 +175,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getString("R_TYPE"),
 						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
-						rs.getInt("M_ID")).toString() 
+						rs.getInt("M_ID")) 
 						);
 			}
 			return reimbList;
@@ -189,8 +189,8 @@ public class EmpImpDao implements EmpDao{
 		return reimbList;
 	}
 	@Override
-	public List<String> getApprovedReimb(Employee employee) throws SQLException {
-		List<String> reimbList = new ArrayList<>();
+	public ArrayList<Reimbursement> getApprovedReimb(Employee employee) {
+		ArrayList<Reimbursement> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -213,7 +213,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getString("R_TYPE"),
 						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
-						rs.getInt("M_ID")).toString() 
+						rs.getInt("M_ID"))
 						);
 			}
 			return reimbList;
@@ -226,8 +226,8 @@ public class EmpImpDao implements EmpDao{
 		log.warn("Failed to get user info");
 		return reimbList;
 	}
-	public List<String> getAllReimb(Employee employee) throws SQLException {
-		List<String> reimbList = new ArrayList<>();
+	public ArrayList<Reimbursement> getAllReimb(Employee employee) {
+		ArrayList<Reimbursement> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -249,7 +249,7 @@ public class EmpImpDao implements EmpDao{
 						rs.getString("R_TYPE"),
 						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
-						rs.getInt("M_ID")).toString() 
+						rs.getInt("M_ID")) 
 						);
 			}
 			return reimbList;
@@ -263,7 +263,7 @@ public class EmpImpDao implements EmpDao{
 		return reimbList;
 	}
 	@Override
-	public Employee getEmpInfo(String username) throws SQLException {
+	public Employee getEmpInfo(String username) {
 		Employee empl = new Employee();
 		
 		Connection conn = null;

@@ -1,7 +1,7 @@
 package com.revature.service;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 import com.revature.dao.EmpImpDao;
 import com.revature.model.Employee;
@@ -21,7 +21,7 @@ public class ERSservice {
 	}
 	//EMPLOYEE DAO
 	//verify user name and password
-	public boolean isValidEmplLogin(String username, String password) throws SQLException {
+	public boolean isValidEmplLogin(String username, String password) {
 		return EmpImpDao.getImpDao().doLogin(username, password);
 		
 	}
@@ -29,20 +29,24 @@ public class ERSservice {
 		
 	}
 	//send reimbursement request
-	public boolean sendReimbRqst(Employee employee, Reimbursement reimbursement) throws SQLException {
+	public boolean sendReimbRqst(Employee employee, Reimbursement reimbursement){
 		return EmpImpDao.getImpDao().postReimbRqst(employee, reimbursement);
 	}
 	//view reimbursement status
-	public List<String> checkPendingReimb(Employee employee) throws SQLException {
+	public ArrayList<Reimbursement> checkPendingReimb(Employee employee){
 		return EmpImpDao.getImpDao().getPendingReimb(employee);
 		
 	}
-	public List<String> checkApprovedReimb(Employee employee) throws SQLException {
+	public ArrayList<Reimbursement> checkApprovedReimb(Employee employee){
 		return EmpImpDao.getImpDao().getApprovedReimb(employee);
 		
 	}
+	public ArrayList<Reimbursement> checkAllReimb(Employee employee){
+		return EmpImpDao.getImpDao().getAllReimb(employee);
+		
+	}
 	//viewEmpInfo
-	public Employee seeEmplInfo(String username) throws SQLException {
+	public Employee seeEmplInfo(String username){
 		return EmpImpDao.getImpDao().getEmpInfo(username);
 		
 	}
@@ -61,7 +65,7 @@ public class ERSservice {
 		
 	}
 	//view all pending requests
-	public List<String> getAllPendingReimbRqst() {
+	public ArrayList<Employee> getAllPendingReimbRqst() {
 		return null;
 		
 	}
@@ -70,11 +74,11 @@ public class ERSservice {
 		
 	}
 	//view resolved requests and the approving manager
-	public List<String> getAllResolvedReimbRqst() {
+	public ArrayList<Employee> getAllResolvedReimbRqst() {
 		return null;
 	}
 	//view all employees
-	public List<String> getAllEmpl() {
+	public ArrayList<Employee> getAllEmpl() {
 		return null;
 	}
 	//view an employee

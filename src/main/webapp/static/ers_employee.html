@@ -65,12 +65,12 @@
               <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Select Type</label>
                 <div class="col-sm-10">
-                  <select class="form-control" id="exampleFormControlSelect1">
+                  <select class="form-control" id="reimbTypeSelect">
                     <option selected>Choose...</option>
-                    <option value="1">Business Travel</option>
-                    <option value="2">Accomodations</option>
-                    <option value="3">Cell Phone</option>
-                    <option value="4">Entertainment</option>
+                    <option value="Business Travel">Business Travel</option>
+                    <option value="Accommodations">Accommodations</option>
+                    <option value="Cell Phone">Cell Phone</option>
+                    <option value="Entertainment">Entertainment</option>
                   </select>
                 </div>
               </div>
@@ -84,44 +84,28 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            <button id="reimbRqst" type="submit" class="btn btn-primary mb-2">Submit</button>
           </div>
         </div>
       </div>
     </div>
 <!-- Body Information -->
+
     <section id="accountInfo">
       <div class="container">
-        <div class="card card-body">
+        <div class="card card-body"> <!-- table for employee information-->
           <h5 class="card-title" style="font-size: 30px">Account Information</h5>
           <table class="table table-bordered table-hover table-condensed table-responsive">
-            <thead data-toggle="collapse" data-target="#tdata1" class="accordion-toggle">
+            <thead data-target="#tdata1">
               <tr>
-                <th>Reimbursement ID</th>
-                <th>Reimbursement Type</th>
-                <th>Reimbursement Cost</th>
-                <th>Reimbursement Status</th>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
               </tr>
             </thead>
-            <tbody id="tdata1" class="collapse">
-              <tr>
-                <td>101</td>
-                <td>Travel</td>
-                <td>$1200.69</td>
-                <td>Pending</td>
-              </tr>
-              <tr>
-                <td>102</td>
-                <td>Cell Phone</td>
-                <td>$200.69</td>
-                <td>Pending</td>
-              </tr>
-              <tr>
-                <td>103</td>
-                <td>Accomodations</td>
-                <td>$600.69</td>
-                <td>Approved</td>
-              </tr>
+            <tbody id="tdata1">
+
             </tbody>
           </table>
         </div>
@@ -130,7 +114,7 @@
 
     <section id="reimbStatus">
       <div class="container">
-        <div class="card card-body">
+        <div class="card card-body"> <!-- table for reimbursement information -->
           <h5 class="card-title" style="font-size: 30px">Reimbursement Status</h5>
           <table class="table table-bordered table-hover table-condensed table-responsive">
             <thead data-toggle="collapse" data-target="#tdata2" class="accordion-toggle">
@@ -142,30 +126,13 @@
               </tr>
             </thead>
             <tbody id="tdata2" class="collapse">
-              <tr>
-                <td>101</td>
-                <td>Travel</td>
-                <td>$1200.69</td>
-                <td>Pending</td>
-              </tr>
-              <tr>
-                <td>102</td>
-                <td>Cell Phone</td>
-                <td>$200.69</td>
-                <td>Pending</td>
-              </tr>
-              <tr>
-                <td>103</td>
-                <td>Accomodations</td>
-                <td>$600.69</td>
-                <td>Approved</td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
       </div>
     </section>
 <!-- SCRIPTS -->
-    <script type="text/javascript"src="../js/ers_employee.js"></script>
+    <script type="text/javascript"src="./js/ers_employee.js"></script>
   </body>
 </html>

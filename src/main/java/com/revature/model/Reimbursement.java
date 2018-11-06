@@ -47,6 +47,11 @@ public class Reimbursement implements Serializable {
 		this.reimbType = reimbType;
 		this.reimbCost = reimbCost;
 	}
+	public Reimbursement(String reimbType, double reimbCost) {
+		super();
+		this.reimbType = reimbType;
+		this.reimbCost = reimbCost;
+	}
 	//
 	public int getReimbID() {
 		return reimbID;
