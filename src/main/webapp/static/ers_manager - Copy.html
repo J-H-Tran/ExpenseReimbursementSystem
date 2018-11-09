@@ -148,19 +148,36 @@
 
 <!-- Body Information -->
 
-    <section id="accountInfo" class="container">
+    <section id="accountInfo" class="container-fluid">
       <div class="row">
-        <div class="card card-body col-sm-6"> <!-- table for employee information-->
+
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+          <div class="col-md-1">.col-md-1</div>
+
+      </div>
+      <div class="row">
+
+        <div class="card card-body col-sm-4 col-xs-offset-1"> <!-- table for employee information-->
           <div class="panel panel-primary">
             <div class="panel-heading" data-toggle="collapse" data-target="#demo" style="font-size: 18px">Employees</div>
-              <div>
-               	<table class="table table-hover table-condensed table-responsive" width="100%" id="demo" class="collapse show">
+              <!-- <div> -->
+               	<table class="table table-hover table-condensed table-responsive" style="width:100%" id="demo" class="collapse show">
                   <thead >
                     <tr>
-                      <th width="25%">Work ID</th>
-                      <th width="25%">First Name</th>
-                      <th width="25%">Last Name</th>
-                      <th width="25%">Email</th>
+                      <th style="width:25%">Work ID</th>
+                      <th style="width:25%">Name</th>
+                      <th style="width:25%"></th>
+                      <th style="width:25%">Email</th>
                     </tr>
                   </thead>
                   <tbody id="mpEmpInfo" >
@@ -183,179 +200,83 @@
                       <td>This</td>
                     </tr>
                     <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>1106</td>
+                      <td>Jonathan</td>
+                      <td>Tran</td>
+                      <td>tr.h.jonathan@gmail.com</td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              <!-- </div> -->
           </div>
         </div>
-        <div class="card card-body col-sm-6"> <!-- Pending Rembursement Information -->
+        <div class="card card-body col-sm-2"> <!-- Pending Rembursement Information -->
           <div class="panel panel-primary">
-            <div class="panel-heading" style="font-size: 18px">Pending Reimbursements</div>
+            <div class="panel-heading" style="font-size: 18px">Pending </div>
               <div>
-                <table class="table table-hover table-condensed table-responsive" width="100%">
+                <table class="table table-hover table-condensed table-responsive" style="width: 100%">
                   <thead>
                     <tr>
-                      <th width="25%">ID</th>
-                      <th width="25%">Type</th>
-                      <th width="25%">Cost</th>
-                      <th width="25%">Status</th>
+                      <th style="width: 50%">Reimb. ID</th>
+                      <th style="width: 50%">Type</th>
+                      <!-- <th width="25%">Cost</th> -->
+                      <!-- <th width="25%">Status</th> -->
                     </tr>
                   </thead>
                   <tbody id="tdataPend">
                     <tr>
+                      <td>1111</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <!-- <td>This</td> -->
+                      <!-- <td>pending</td> -->
                     </tr>
                     <tr>
+                      <td>1112</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <!-- <td>This</td> -->
+                      <!-- <td>pending</td> -->
                     </tr>
                     <tr>
+                      <td>1113</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <!-- <td>This</td> -->
+                      <!-- <td>pending</td> -->
                     </tr>
                     <tr>
+                      <td>1122</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <!-- <td>This</td> -->
+                      <!-- <td>pending</td> -->
                     </tr>
                     <tr>
+                      <td>1123</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <!-- <td>This</td> -->
+                      <!-- <td>pending</td> -->
                     </tr>
                   </tbody>
                 </table>
               </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
 
-      <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="card card-body col-sm-10" id="resolvedReimb"> <!-- table for employee information-->
+      <!-- <div class="row"> -->
+        <!-- <div class="col-sm-1"></div> -->
+        <div class="card card-body col-sm-4" id="resolvedReimb"> <!-- table for employee information-->
           <div class="panel panel-primary">
-            <div class="panel-heading" style="font-size: 18px">Resolved Reimbursements</div>
+            <div class="panel-heading" style="font-size: 18px">Resolved </div>
               <div>
-                <table class="table table-hover table-condensed table-responsive" width="100%">
+                <table class="table table-hover table-condensed table-responsive" style="width: 100%">
                   <thead>
                     <tr>
-                      <th width="14%">Work ID</th>
-                      <th width="14%">ID</th>
-                      <th width="14%">Type</th>
-                      <th width="14%">Cost</th>
-                      <th width="14%">Status</th>
-                      <th width="14%">Manager</th>
-                      <th width="14%">Name</th>
+                      <th style="width: 33%">Work ID</th>
+                      <th style="width: 33%">Reimb. ID</th>
+                      <!-- <th width="14%">Type</th>
+                      <th width="14%">Cost</th> -->
+                      <th style="width: 33%">Status</th>
+                      <!-- <th style="width: 20%">Manager</th>
+                      <th style="width: 20%">Name</th> -->
                     </tr>
                   </thead>
                   <tbody id="tdataAppr">
@@ -363,143 +284,73 @@
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                     <tr>
                       <td>This</td>
                       <td>This</td>
                       <td>This</td>
+                      <!-- <td>This</td>
                       <td>This</td>
                       <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                    </tr>
-                    <tr>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
-                      <td>This</td>
+                      <td>This</td> -->
                     </tr>
                   </tbody>
                 </table>
               </div>
           </div>
         </div>
+      <!-- </div> -->
       </div>
+
     </section>
 
 <!-- SCRIPTS -->

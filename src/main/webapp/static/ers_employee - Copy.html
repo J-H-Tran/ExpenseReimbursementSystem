@@ -197,7 +197,12 @@ To ensure proper rendering and touch zooming-->
     <div id="menu1" class="tab-pane fade">
       <div class="">
         <div class="row">
-          <div class=""><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for ID..">
+          <div class="">
+<div class="form-group has-feedback">
+            <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Filter approval status..">
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+</div>
+
             <div class="card card-body"> <!-- table for employee information-->
               <div class="panel" >
                 <div class="panel-heading" style="font-size: 18px"></div>

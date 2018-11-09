@@ -179,8 +179,13 @@ function getEmpReimb() {
 			
 			console.log(obj)
 			
+			let table = document.getElementById("getEmpReimbInfo");
+			
+			clearTable(table);
+			
 			for (var i = 0, l = obj.length; i < l; i++) {
                 var obj4 = obj[i];
+                
                 fillAllReimbInfo(obj4);
             }
 		}
@@ -189,6 +194,14 @@ function getEmpReimb() {
 	xhr1.setRequestHeader("Content-Type", "application/json");
  	xhr1.send(reimbRqstJSON);
 }
+
+function clearTable(table) {
+    var rows = table.rows;
+    var i = rows.length;
+    while (--i) {
+      rows[i].parentNode.removeChild(rows[i]);
+    }
+  }
 
 function fillAllReimbInfo(obj4){
 	//console.log("Got employee info");			
