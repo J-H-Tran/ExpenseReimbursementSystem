@@ -47,6 +47,15 @@ public class Employee implements Serializable {
 		this.lasName = lasName;
 		this.emailAddr = emailAddr;
 	}
+	public Employee(String firName, String lasName, String emailAddr,
+			String usrName, String passWord) {
+		super();
+		this.firName = firName;
+		this.lasName = lasName;
+		this.emailAddr = emailAddr;
+		this.usrName = usrName;
+		this.passWord = passWord;
+	}
 	public int getEmplID() {
 		return emplID;
 	}

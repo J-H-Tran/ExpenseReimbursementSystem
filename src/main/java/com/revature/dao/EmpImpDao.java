@@ -300,8 +300,37 @@ public class EmpImpDao implements EmpDao{
 		return new Employee();
 	}
 	@Override
-	public boolean updateEmpInfo(Employee employee) {
-		// TODO Auto-generated method stub
+	public boolean updateEmpInfo(Employee employee, Employee logged) {
+		log.info("Submitting reimbursement request into database");
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
+			String storeProcs = "UPDATE empl_table SET e_firstname = ?, e_lastname = ?, "
+					+ "e_email = ?, e_username = ?, e_password = ? WHERE e_job_id = ?";
+			CallableStatement cs = conn.prepareCall(storeProcs);
+//firstName varchar2, lastName varchar2, eMail varchar2, userName varchar2, pWord varchar2, workID number
+			cs.setString(1, employee.getFirName());
+			cs.setString(2, employee.getLasName());
+			cs.setString(3, employee.getEmailAddr());
+			cs.setString(4, employee.getUsrName());
+			cs.setString(5, employee.getPassWord());
+			cs.setInt(6, logged.getJobID());
+			
+			cs.executeUpdate();
+			
+			if(verifyReimb()) {
+				log.info("Insert into database successful");
+				return true;
+			} 
+		} catch (SQLException s) {
+			log.error("Exception in insertUserProcedure thrown");
+			s.getMessage();
+			s.printStackTrace();
+		} finally {
+			log.warn("insertUserProcedure - executed finally block");
+		}log.warn("Insert failed");
 		return false;
 	}
 }

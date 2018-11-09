@@ -22,6 +22,7 @@ public class RequestHelper {
 		while(switchString.indexOf("/") > 0) {
 			switchString = switchString.substring(0, switchString.indexOf("/"));
 		}
+		System.out.println(switchString + "*********************");
 		switch(switchString) {
 		case "home": 
 			hd.goHome(req, resp); 
@@ -48,6 +49,25 @@ public class RequestHelper {
 			break;
 		case "employee-submit-reimb":
 			hd.sendReimbRqst(req, resp);
+			break;
+		case "employee-update-info":
+			hd.updateEmplInfo(req, resp);
+			break;
+		case "manager-all-employee-info": // ******************** Manager **********************
+			hd.mngrGetAllEmpl(req, resp);
+			break;
+		case "manager-approved-reimbursements": 
+			hd.mngrGetApprMngr(req, resp);
+			break;
+		case "manager-pending-reimbursements":
+			hd.mngrGetAllPend(req, resp);
+			break;
+		case "one-employee-reimb1": System.out.println("Case: one-employee-reimb");
+			hd.mngrGetReimbRqst(req, resp);
+			break;
+		case "resolve-reimb-rqst":
+			hd.resolveRqst(req, resp);
+			break;
 		default: 
 			break;
 		}

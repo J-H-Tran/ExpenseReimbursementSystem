@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.revature.dao.EmpImpDao;
+import com.revature.dao.MngrImplDao;
 import com.revature.model.Employee;
 //import com.revature.model.Manager;
 import com.revature.model.Reimbursement;
@@ -51,8 +52,8 @@ public class ERSservice {
 		
 	}
 	//updateEmpInfo
-	public void pushEmplInfo() {
-		
+	public boolean pushEmplInfo(Employee employee, Employee logged) {
+		return EmpImpDao.getImpDao().updateEmpInfo(employee, logged);
 	}
 	
 	//MANAGER DAO
@@ -65,25 +66,25 @@ public class ERSservice {
 		
 	}
 	//view all pending requests
-	public ArrayList<Employee> getAllPendingReimbRqst() {
-		return null;
+	public ArrayList<Reimbursement> getAllPendingReimbRqst() {
+		return MngrImplDao.getMngrDao().getPendingReimb();
 		
 	}
 	//approve/deny requests
-	public void handleReimbRqst() {
-		
+	public boolean handleReimbRqst(Employee employee, Reimbursement reimbursement) {
+		return MngrImplDao.getMngrDao().resolveReimbRqst(employee, reimbursement);
 	}
 	//view resolved requests and the approving manager
-	public ArrayList<Employee> getAllResolvedReimbRqst() {
-		return null;
+	public ArrayList<Reimbursement> getAllResolvedReimbRqst() {
+		return MngrImplDao.getMngrDao().getResolvingMngr();
 	}
 	//view all employees
 	public ArrayList<Employee> getAllEmpl() {
-		return null;
+		return MngrImplDao.getMngrDao().getAllEmpInfo();
 	}
 	//view an employee
-	public Employee getEmpl() {
-		return null;
+	public ArrayList<Reimbursement> getEmpReimb(Employee employee) {
+		return MngrImplDao.getMngrDao().getEmpRequest(employee);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Employee;
@@ -10,9 +11,9 @@ public interface MngrDao {
 	public boolean doLogin(String username);
 	public void doLogout();
 	public Employee getEmpInfo(int emplWorkID);
-	public List<String> getAllEmpInfo();
-	public List<String> getResolvingMngr();
-	public void resolveReimbRqst();
-	public List<String> getPendingReimb();
+	public ArrayList<Employee> getAllEmpInfo();
+	public ArrayList<Reimbursement> getResolvingMngr();
+	public boolean resolveReimbRqst(Employee employee, Reimbursement reimbursement);
+	public ArrayList<Reimbursement> getPendingReimb();
 	
 }

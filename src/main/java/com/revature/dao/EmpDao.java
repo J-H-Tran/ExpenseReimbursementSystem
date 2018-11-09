@@ -14,6 +14,6 @@ public interface EmpDao {
 	public ArrayList<Reimbursement> getPendingReimb(Employee employee);
 	public ArrayList<Reimbursement> getApprovedReimb(Employee employee);
 	public Employee getEmpInfo(String username);
-	public boolean updateEmpInfo(Employee employee);
+	public boolean updateEmpInfo(Employee employee, Employee logged);
 
 }

@@ -29,6 +29,11 @@ public class LoginDelegate {
 			session.setAttribute("user", login);
 			resp.sendRedirect("/ExpenseReimbursementSystem/static/ers_employee.html");
 		}
+		else if(login.getJobDescr().compareToIgnoreCase("manager") == 0){
+			HttpSession session = req.getSession();
+			session.setAttribute("user", login);
+			resp.sendRedirect("/ExpenseReimbursementSystem/static/ers_manager.html");
+		}
 	}
 	
 	public void getPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +48,8 @@ public class LoginDelegate {
 	}
 	
 	public void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
 		req.getSession().invalidate();
-		resp.sendRedirect("login");
+		
 	}
 }

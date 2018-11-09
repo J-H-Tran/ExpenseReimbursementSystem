@@ -14,58 +14,66 @@
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
     <link rel="stylesheet" href="./css/ers_master.css">
+
+    <style media="screen">
+    tr:hover td {
+      background: #fff8b1;
+    }
+    </style>
   </head>
 
-  <body>
+  <body style="padding-top: 50px; background-color: #f5f5f5">
+    <img src="./img/b&w-business.jpg" alt="cover-img" style="width: 100%; padding-bottom: 13px;">
   <!-- <div class="godown-60" id="godown" style="height: 60px;"></div> -->
 <!-- NAVGATION -->
-
-    <nav class="navbar navbar-default navbar-static-top navbar-inverse flex-column flex-sm-row">
-      <div class="container-fluid">
-
-        <div class="navbar-header">
-          <a class="navbar-left"><img src="./img/ers-logo.png" class="img-rounded" style="width: 30px; margin-top: 10px; margin-right: 15px"></a>
-          <span class="navbar-brand" >ERS</span>
-        </div>
-
-        <ul class="nav navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li style="margin-left: 20px"><a href="#accountInfo">Account Information</a></li>
-          <li><a href="#reimbStatus">Expense Reimbursement</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter">Request Reimbursement</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            </ul>
-          </li>
-        </ul>
+</div>
+  <nav class="navbar navbar-fixed-top navbar-inverse flex-column flex-sm-row">
+    <div class="container-fluid">
+      <!-- <span class="navbar-left"><img src="./img/ers-logo.png" class="img-rounded" style="width: 30px; margin-top: 10px; margin-right: 15px"></span> -->
+      <div class="navbar-header">
+        <span class="navbar-left"><img src="./img/ers-logo.png" class="img-rounded" style="width: 40px; margin-top: 6px; margin-right: 15px"></span>
+        <span class="navbar-brand" > ERS </span>
       </div>
-    </nav>
-    <button id="getInfo">Get Info</button>
-<p id="origInfo">Original text for Info</p>
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link"> Employee Homepage <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Options <span class="glyphicon glyphicon-menu-hamburger" style="margin-left: 3px"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" data-toggle="modal" data-target="#reimbRqstModal">Request Reimbursement</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#updateInfoModal">Update Account Info</a></li>
+            <li>
+                <a href="#" id="logoutClick">Logout <span class="glyphicon glyphicon-log-out" style="margin-left: 3px"></span></a>
+            </li>
+            <!-- <li><a href="#" name="submit" value="Logout">Logout <span class="glyphicon glyphicon-log-out" style="margin-left: 3px"></span></a></li> -->
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
 <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+<div class="container">
+  <div class="row">
+    <div class="modal fade" style="width:100%;" id="reimbRqstModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog" style="width: 400px" role="document">
+        <div class="modal-content"> <!-- Modal for submitting a reimbursement request -->
           <div class="modal-header">
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size: 20px">Reimbursement Request Form</h5>
+            <h5 class="modal-title" id="modalCenterTitle" style="font-size: 20px">Reimbursement Request Form</h5>
           </div>
           <div class="modal-body">
             <form>
               <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Select Type</label>
-                <div class="col-sm-10">
-                  <select class="form-control" id="reimbTypeSelect">
+                <label for="reimbTypeSelect" class="col-sm-4 col-form-label">Select Type</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="reimbTypeSelect" required>
                     <option selected>Choose...</option>
                     <option value="Business Travel">Business Travel</option>
                     <option value="Accommodations">Accommodations</option>
@@ -75,64 +83,172 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="reimbCost" class="col-sm-2 col-form-label">Expense Cost</label>
-                <div class="col-sm-10">
+                <label for="reimbCost" class="col-sm-4 col-form-label">Expense Cost</label>
+                <div class="col-sm-8">
                   <input type="text" class="form-control" id="reimbCost" placeholder="Enter Amount">
                 </div>
               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="reimbRqst" type="submit" class="btn btn-primary mb-2">Submit</button>
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="reimbRqst" type="submit" class="btn btn-primary mb-2">Submit</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content"> <!-- Modal for updating user info -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="exampleModalCenterTitle" style="font-size: 20px">Update Information</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <label for="emplFname" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="emplFname" placeholder="Enter First Name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="emplLname" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="emplLname" placeholder="Enter Last Name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="emplEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="emplEmail" placeholder="Enter Email" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="emplUname" class="col-sm-2 col-form-label">User Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="emplUname" placeholder="Enter User Name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="emplPword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="emplPword" placeholder="Enter Password" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="updateInfo" type="submit" class="btn btn-primary mb-2">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Body Information -->
 
-    <section id="accountInfo">
-      <div class="container">
-        <div class="card card-body"> <!-- table for employee information-->
-          <h5 class="card-title" style="font-size: 30px">Account Information</h5>
-          <table class="table table-bordered table-hover table-condensed table-responsive">
-            <thead data-target="#tdata1">
-              <tr>
-                <th>Employee ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody id="tdata1">
+<div class="container-fluid" style="width: 75%">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Account Details</a></li>
+    <li><a data-toggle="tab" href="#menu1">Reimbursement Details</a></li>
+  </ul>
 
-            </tbody>
-          </table>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <div class=""> <!-- class="container" -->
+        <div class="row">
+          <div class=""> <!-- (grid system) col-sm-4-->
+            <div class="card card-body" > <!-- table for employee information-->
+              <div class="panel">
+                <div class="panel-heading" style="font-size: 18px"></div>
+                <div class="table-responsive">
+                  <table class="table table-hover table-condensed" style="width: 100%">
+                    <thead>
+                      <tr>
+                        <th style="width: 25%">Work ID</th>
+                        <th style="width: 25%">Employee</th>
+                        <th style="width: 25%">Name</th>
+                        <th style="width: 25%">Email</th>
+                      </tr>
+                    </thead>
+                    <tbody id="hpEmpInfo">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <section id="reimbStatus">
-      <div class="container">
-        <div class="card card-body"> <!-- table for reimbursement information -->
-          <h5 class="card-title" style="font-size: 30px">Reimbursement Status</h5>
-          <table class="table table-bordered table-hover table-condensed table-responsive">
-            <thead data-toggle="collapse" data-target="#tdata2" class="accordion-toggle">
-              <tr>
-                <th>Reimbursement ID</th>
-                <th>Reimbursement Type</th>
-                <th>Reimbursement Cost</th>
-                <th>Reimbursement Status</th>
-              </tr>
-            </thead>
-            <tbody id="tdata2" class="collapse">
-              
-            </tbody>
-          </table>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <div class="">
+        <div class="row">
+          <div class="">
+          
+    
+	     
+<div class="form-group has-feedback" style="width: 200px; float: right">
+  <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Filter approval status..">
+  <i class="glyphicon glyphicon-search form-control-feedback"></i>
+</div>
+          
+     
+          
+            <div class="card card-body"> <!-- table for employee information-->
+              <div class="panel" >
+                <div class="panel-heading" style="font-size: 18px"></div>
+                <div class="table-responsive">
+                  <table id="reimbData" class="table table-hover table-condensed" style="width:100%;">
+                    <thead>
+                      <tr>
+                        <th style="width:25%">ID</th>
+                        <th style="width:25%">Type</th>
+                        <th style="width:25%">Cost</th>
+                        <th style="width:25%">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tdata2">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</div>
 <!-- SCRIPTS -->
-    <script type="text/javascript"src="./js/ers_employee.js"></script>
+    <script type="text/javascript"src="./js/employee.js"></script>
+    <script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("reimbData");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
   </body>
 </html>

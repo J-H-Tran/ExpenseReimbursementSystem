@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,9 +42,9 @@ public class MngrImplDao implements MngrDao{
 //    	}
 //		System.out.println(getMngrDao().getEmpInfo(3000));
 //		System.out.println();
-		for (String str: getMngrDao().getPendingReimb()) {
-    		System.out.print(str);
-    	}
+//		for (String str: getMngrDao().getPendingReimb()) {
+//    		System.out.print(str);
+//    	}
 //		for (String str: getMngrDao().getResolvingMngr()) {
 //    		System.out.print(str);
 //    	}
@@ -119,8 +120,8 @@ public class MngrImplDao implements MngrDao{
 		return new Employee();
 	}
 	@Override
-	public List<String> getAllEmpInfo() {
-		List<String> allEmpl = new ArrayList<>();
+	public ArrayList<Employee> getAllEmpInfo() {
+		ArrayList<Employee> allEmpl = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -141,7 +142,8 @@ public class MngrImplDao implements MngrDao{
 						rs.getString("E_LASTNAME"), 
 						rs.getString("E_EMAIL"), 
 						rs.getString("E_USERNAME"), 
-						rs.getString("e_password")).toString());
+						rs.getString("e_password"))
+						);
 			} 
 			return allEmpl;
 		} catch (SQLException s) {
@@ -153,8 +155,8 @@ public class MngrImplDao implements MngrDao{
 		return allEmpl;
 	}
 	@Override
-	public List<String> getResolvingMngr() {
-		List<String> resolvedList = new ArrayList<>();
+	public ArrayList<Reimbursement> getResolvingMngr() {
+		ArrayList<Reimbursement> resolvedList = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -171,19 +173,17 @@ public class MngrImplDao implements MngrDao{
 			while (rs.next()) {
 				log.info("did the while loop execute?");
 				resolvedList.add(
-						new Employee(
+						new Reimbursement(
 								rs.getInt("e_job_id"),
 								rs.getString("e_firstname"),
 								rs.getString("e_lastname"),
-								rs.getString("e_email")).toStringJoin()
-						+ new Reimbursement(
+								rs.getString("e_email"),
 								rs.getInt("rt"),
 								rs.getString("r_type"),
 								rs.getDouble("r_cost"),
-								rs.getString("r_status")).toStringJoin()
-						+ new Manager(
+								rs.getString("r_status"),
 								rs.getString("m_firstname"),
-								rs.getString("m_lastname")).toStringJoin() 
+								rs.getString("m_lastname"))
 					);
 			}
 			return resolvedList;
@@ -197,13 +197,39 @@ public class MngrImplDao implements MngrDao{
 		return resolvedList;
 	}
 	@Override
-	public void resolveReimbRqst() {
+	public boolean resolveReimbRqst(Employee employee, Reimbursement reimbursement) {
 		// TODO Auto-generated method stub
+		log.info("Submitting reimbursement request into database");
 		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try /*(Connection conn = ConnectionUtil.getConnection())*/ {
+			String storeProcs = "UPDATE reimb_table SET r_status = ?, m_id = ? WHERE r_id = ?";
+			CallableStatement cs = conn.prepareCall(storeProcs);
+//firstName varchar2, lastName varchar2, eMail varchar2, userName varchar2, pWord varchar2, workID number
+			cs.setString(1, reimbursement.getReimbStatus());
+			cs.setInt(2, employee.getEmplID());
+			cs.setInt(3, reimbursement.getReimbID());
+			
+			//cs.executeUpdate();
+			
+			if(cs.executeUpdate() > 0) {
+				log.info("Insert into database successful");
+				return true;
+			} 
+		} catch (SQLException s) {
+			log.error("Exception in insertUserProcedure thrown");
+			s.getMessage();
+			s.printStackTrace();
+		} finally {
+			log.warn("insertUserProcedure - executed finally block");
+		}log.warn("Insert failed");
+		return false;
 	}
 	@Override
-	public List<String> getPendingReimb() {
-		List<String> reimbList = new ArrayList<>();
+	public ArrayList<Reimbursement> getPendingReimb() {
+		ArrayList<Reimbursement> reimbList = new ArrayList<>();
 		
 		Connection conn = null;
 		conn = cu.getConnection();
@@ -224,8 +250,44 @@ public class MngrImplDao implements MngrDao{
 						rs.getString("R_TYPE"),
 						rs.getDouble("R_COST"),
 						rs.getString("R_STATUS"),
-						rs.getInt("M_ID")).toString() 
+						rs.getInt("M_ID")) 
 						);
+			}
+			return reimbList;
+		} catch (SQLException s) {
+			log.error("Exception in getUser thrown");
+			s.getMessage();
+		} finally {
+			log.warn("getUser - executed finally block");
+		}
+		log.warn("Failed to get user info");
+		return reimbList;
+	}
+	
+	public ArrayList<Reimbursement> getEmpRequest(Employee employee) {
+		ArrayList<Reimbursement> reimbList = new ArrayList<>();
+		
+		Connection conn = null;
+		conn = cu.getConnection();
+		
+		try {
+			log.info("Retreiving user info");
+			String sql = "select et.e_job_id, rt.r_id, rt.r_type, rt.r_cost, rt.r_status "
+					+ "from empl_table et left join reimb_table rt "
+					+ "on rt.e_id = et.e_id where et.e_job_id = ?";
+	
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, employee.getJobID());
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				log.info("did the while loop execute?");
+				reimbList.add(new Reimbursement(
+						rs.getInt("R_ID"),
+						rs.getString("R_TYPE"),
+						rs.getDouble("R_COST"),
+						rs.getString("R_STATUS")
+						));
 			}
 			return reimbList;
 		} catch (SQLException s) {

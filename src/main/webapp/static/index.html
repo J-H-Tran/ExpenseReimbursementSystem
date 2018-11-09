@@ -19,28 +19,26 @@
 
 </head>
 <body class="login-body">
-	<div id="login-container" style="vertical-align: middle;">
-          <div id="login-div2">
-            <form class="container-fluid" action="../login" method="post">
-                <fieldset><br>
-                  <img id="login-logo" src="./img/uh-engr.jpg" alt="uh engr"><br>
-                  <br>
-				  <input class="form-control" type="text" name="user" placeholder="Enter Username" style="width: 280px">
-				  <br>
-	              <input class="form-control" type="password" name="pass" placeholder="Enter Password"style="width: 280px">
-	              <br>
-                  <!--<input type="submit" value="Submit">-->
-                  <input id="login-button" type="submit" value="Login">
-                  <br>
-                  <a id="forgot-pword" href="https://www.w3schools.com">Forgot Password?</a>
-                </fieldset>
-            </form>
-          </div>
-     </div>
-	<!-- <form action="login" method="post">
-		Username: <input type="text" name="user"/> <br>
-		Password: <input type="password" name="pass"/> <br>
-		<input type="submit" value="Login"/>
-	</form> -->
+	<div id="login-container" class="container" style="vertical-align: middle; width: 310px">
+    <form action="../login" method="post" >
+      <img id="login-logo" src="./img/uh-engr.jpg" alt="uh engr" style="margin-top: 30px; margin-bottom: 10px">
+      <div class="input-group" style="margin-bottom: 10px">
+				<div class="input-group-addon">
+					<span class="form-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+				</div>
+				<input type="text" class="form-control" name="user" placeholder="Enter Username" required>
+      </div>
+		 	<div class="input-group" style="margin-bottom: 20px">
+				<div class="input-group-addon">
+					<span class="form-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+				</div>
+				<input class="form-control" type="password" name="pass" placeholder="Enter Password" required>
+		 	</div>
+      <div class="form-group">
+				<input id="login-button" type="submit" value="Login">
+      </div>
+      <a id="forgot-pword" href="https://www.w3schools.com">Forgot Password?</a>
+    </form>
+  </div>
 </body>
 </html>
