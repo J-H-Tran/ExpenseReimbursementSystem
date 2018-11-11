@@ -26,8 +26,10 @@ public class HomeDelegate {
 		Login login = (Login) session.getAttribute("user");
 
 		if (login == null) {
-			resp.sendRedirect("login");
-		} else {
+			//resp.sendRedirect("login");
+			resp.sendRedirect("/ExpenseReimbursementSystem/static/index.html");
+		} 
+		else {
 			PrintWriter pw = resp.getWriter();
 			pw.write("<!DOCTYPE html><html><head>" + "<meta charset=\"ISO-8859-1\"><title>HelloWorld</title>"
 					+ "</head><body>");
@@ -39,8 +41,20 @@ public class HomeDelegate {
 			pw.write("</body></html>");
 		}
 	}
-
-	public void fillAllReimb(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	public void getEmpInfo(HttpServletRequest req, HttpServletResponse resp) throws JsonGenerationException, JsonMappingException, IOException {
+		// TODO Auto-generated method stub
+		Employee emplInfo = new Employee();
+		ObjectMapper mapper = new ObjectMapper();
+		Employee empl = (Employee) req.getSession().getAttribute("user");
+		emplInfo = ERSservice.getERSservice().seeEmplInfo(empl.getUsrName());
+		resp.setHeader("Content-Type", "application/json"); //tells html that it's expecting content type of json
+		mapper.writeValue(resp.getOutputStream(), emplInfo); //writes data to html
+	}
+	/*Employee empl = (Employee) req.getSession().getAttribute("user");
+	ObjectMapper mapper = new ObjectMapper();
+	resp.setHeader("Content-Type", "application/json"); //tells html that it's expecting content type of json
+	mapper.writeValue(resp.getOutputStream(), empl); //writes data to html
+*/	public void fillAllReimb(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		Employee loginEmpl = (Employee) req.getSession().getAttribute("user");
 		ArrayList<Reimbursement> reimbList = ERSservice.getERSservice().checkAllReimb(loginEmpl);
@@ -49,19 +63,43 @@ public class HomeDelegate {
 	}
 
 	public void sendReimbRqst(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Reimbursement rs = mapper.readValue(req.getReader(), Reimbursement.class);
-		Employee loginEmpl = (Employee)req.getSession().getAttribute("user");
+		//ObjectMapper mapper = new ObjectMapper();
+		Reimbursement rs = new Reimbursement();
+		rs.setReimbType(req.getParameter("type"));
+		rs.setReimbCost(Double.parseDouble(req.getParameter("cost")));
+;		Employee loginEmpl = (Employee)req.getSession().getAttribute("user");
 		ERSservice.getERSservice().sendReimbRqst(loginEmpl, rs);
+		resp.sendRedirect("./static/ers_employee.html");
 	}
-
+//	private int emplID;
+//	private int jobID;
+//	private String jobDescr;
+//	private String firName;
+//	private String lasName;
+//	private String emailAddr;
+//	private String usrName;
+//	private String passWord;
 	public void updateEmplInfo(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Employee empl = mapper.readValue(req.getReader(), Employee.class);
-		Employee loginEmpl = (Employee)req.getSession().getAttribute("user");
-		ERSservice.getERSservice().pushEmplInfo(empl, loginEmpl);
+		//ObjectMapper mapper = new ObjectMapper();
+		Employee emp = new Employee();
+		Employee newUser = (Employee) req.getSession().getAttribute("user");
+		emp.setEmplID(newUser.getEmplID());
+		emp.setFirName(req.getParameter("fname"));
+		emp.setLasName(req.getParameter("lname"));
+		emp.setEmailAddr(req.getParameter("email"));
+		emp.setUsrName(req.getParameter("uname"));
+		emp.setPassWord(newUser.getPassWord());
+		emp.setJobDescr(newUser.getJobDescr());
+		emp.setJobID(newUser.getJobID());
+		//Employee empl = mapper.readValue(req.getReader(), Employee.class);
+		//Employee loginEmpl = (Employee)req.getSession().getAttribute("user");
+		System.out.println(newUser);
+		ERSservice.getERSservice().pushEmplInfo(emp, newUser);
+		req.getSession().removeAttribute("user");
+		req.getSession().setAttribute("user", emp);
+		resp.sendRedirect("./static/ers_employee.html");
 	}
-
+// **************************************** Manager features ****************************************
 	public void mngrGetAllEmpl(HttpServletRequest req, HttpServletResponse resp) throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Employee> empList = ERSservice.getERSservice().getAllEmpl();
@@ -80,7 +118,7 @@ public class HomeDelegate {
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayList<Reimbursement> apprMngrReimb = ERSservice.getERSservice().getAllResolvedReimbRqst();
 		resp.setHeader("Content-Type", "application/json");
-		mapper.writeValue(resp.getOutputStream(), apprMngrReimb);
+		mapper.writeValue(resp.getOutputStream(), apprMngrReimb); // sends to .js
 	}
 
 	public void mngrGetReimbRqst(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
@@ -88,17 +126,22 @@ public class HomeDelegate {
 		Employee empl = mapper.readValue(req.getReader(), Employee.class);
 		ArrayList<Reimbursement> empList = ERSservice.getERSservice().getEmpReimb(empl);
 		resp.setHeader("Content-Type", "application/json");
-		mapper.writeValue(resp.getOutputStream(), empList);
+		mapper.writeValue(resp.getOutputStream(), empList); // .js gets this as a response
 	}
 
 	public void resolveRqst(HttpServletRequest req, HttpServletResponse resp) throws JsonParseException, JsonMappingException, IOException {
 		// TODO Auto-generated method stub
-		ObjectMapper mapper = new ObjectMapper();
-		Employee loginEmpl = (Employee) req.getSession().getAttribute("user");
-		Reimbursement rslvReimb = mapper.readValue(req.getReader(), Reimbursement.class);
+		//ObjectMapper mapper = new ObjectMapper();
+		Employee loginMngr = (Employee) req.getSession().getAttribute("user");
+		Reimbursement rslvReimb = new Reimbursement();
+		rslvReimb.setReimbID(Integer.parseInt(req.getParameter("rID")));
+		rslvReimb.setReimbStatus(req.getParameter("resolv"));
 		//Employee loginEmpl = (Employee)req.getSession().getAttribute("user");
-		ERSservice.getERSservice().handleReimbRqst(loginEmpl, rslvReimb);
+		ERSservice.getERSservice().handleReimbRqst(loginMngr, rslvReimb);
+		resp.sendRedirect("./static/ers_manager.html");
 	}
+	
+
 
 
 }

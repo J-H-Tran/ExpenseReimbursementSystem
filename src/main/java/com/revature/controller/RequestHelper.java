@@ -14,7 +14,6 @@ import com.revature.model.Employee;
 public class RequestHelper {
 	private HomeDelegate hd = new HomeDelegate();
 	private LoginDelegate ld = new LoginDelegate();
-	//private ManagerDelegate
 	
 	public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String switchString = req.getRequestURI().substring(req.getContextPath().length() + 1);
@@ -22,7 +21,7 @@ public class RequestHelper {
 		while(switchString.indexOf("/") > 0) {
 			switchString = switchString.substring(0, switchString.indexOf("/"));
 		}
-		System.out.println(switchString + "*********************");
+		// grabs urn and directs to the corresponding delegates for logic
 		switch(switchString) {
 		case "home": 
 			hd.goHome(req, resp); 
@@ -39,10 +38,7 @@ public class RequestHelper {
 			ld.logout(req, resp); 
 			break;
 		case "employee-info": 
-			Employee empl = (Employee) req.getSession().getAttribute("user");
-			ObjectMapper mapper = new ObjectMapper();
-			resp.setHeader("Content-Type", "application/json"); //tells html that it's expecting content type of json
-			mapper.writeValue(resp.getOutputStream(), empl); //writes data to html
+			hd.getEmpInfo(req, resp);
 			break;
 		case "employee-reimbursements":
 			hd.fillAllReimb(req, resp);
@@ -62,7 +58,7 @@ public class RequestHelper {
 		case "manager-pending-reimbursements":
 			hd.mngrGetAllPend(req, resp);
 			break;
-		case "one-employee-reimb1": System.out.println("Case: one-employee-reimb");
+		case "one-employee-reimb1": 
 			hd.mngrGetReimbRqst(req, resp);
 			break;
 		case "resolve-reimb-rqst":

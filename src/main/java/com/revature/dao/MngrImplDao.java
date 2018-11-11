@@ -165,9 +165,9 @@ public class MngrImplDao implements MngrDao{
 			log.info("Retreiving user info");
 			String sql = "SELECT et.e_job_id, et.e_firstname, et.e_lastname, et.e_email, r.r_id as rt, r.r_type, r.r_cost, r.r_status, "
 					+ "mt.e_firstname as m_firstname, mt.e_lastname as m_lastname FROM reimb_table r LEFT JOIN empl_table et ON et.e_id = r.e_id "
-					+ "left join empl_table mt on mt.e_id = r.m_id where r_status =?";
+					+ "left join empl_table mt on mt.e_id = r.m_id where r_status != ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "approved");
+			pstmt.setString(1, "pending");
 			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -300,47 +300,4 @@ public class MngrImplDao implements MngrDao{
 		return reimbList;
 	}
 	
-	/*public List<String> getReimbStatus(Employee employee) {
-		List<String> reimbList = new ArrayList<>();
-		
-		try (Connection conn = ConnectionUtil.getConnection()) {
-			log.info("Retreiving user info");
-			//String sql = "SELECT * FROM reimb_table WHERE e_id = ? and r_status = ?";
-			String sql = "SELECT * FROM mngr_table LEFT JOIN reimb_table ON mngr_table.m_id = reimb_table.m_id";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, employee.getEmplID());
-			pstmt.setString(2, "pending");
-			
-			ResultSet rs = pstmt.executeQuery();
-			//int reimbID, int emplID, String reimbType, int reimbCost, String reimbStatus, int apprMngr
-			while (rs.next()) {
-				log.info("did the while loop execute?");
-				reimbList.add(new Reimbursement(
-						rs.getInt("r_id"),
-						rs.getInt("e_id"),
-						rs.getString("r_type"),
-						rs.getInt("r_cost"),
-						rs.getString("r_status"),
-						rs.getInt("m_id")).toString() 
-						+ new Manager( //int mngrID, int jobID, String jobDescr, String firName, String lasName, String emailAddr, String passWord
-								rs.getInt(""),
-								rs.getInt(""),
-								rs.getString(""),
-								rs.getString(""),
-								rs.getString(""),
-								rs.getString(""),
-								rs.getString("")));
-			}
-			return reimbList;
-		} catch (SQLException s) {
-			log.error("Exception in getUser thrown");
-			s.getMessage();
-		} finally {
-			log.warn("getUser - executed finally block");
-		}
-		log.warn("Failed to get user info");
-		return reimbList;
-	}*/
 }
-
-

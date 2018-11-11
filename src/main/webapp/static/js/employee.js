@@ -3,44 +3,41 @@
 // updateEmployeeInfo,			[X]
 // getAllReimbursementStatus,	[X]
 // submitReimbursementRequest,	[X]
-// and Logout					[]
+// and Logout					[X]
 
 window.onload = () => {
-	console.log("Window onload"); //remove later
 	getEmplInfo();
 	getReimbInfo();
-	document.getElementById("reimbRqst").addEventListener("click", sendReimbRqst);
-	document.getElementById("updateInfo").addEventListener("click", updateInfo);
-	document.getElementById("logoutClick").addEventListener("click", logoutUser);
 }
 
 function getEmplInfo() {
+	console.log('Get Employee Info');
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		
 		if ((xhr.readyState == 4) && (xhr.status == 200)){
-			console.log("Got employee info");			
-			let row = document.createElement("tr");
-			let idCol = document.createElement("td");
-			let fnameCol = document.createElement("td");
-			let lnameCol = document.createElement("td");
-			let emailCol = document.createElement("td");
+			console.log("If statement");
+			let list = document.createElement("ul");
+			let eid = document.createElement("li");
+			let fname = document.createElement("li");
+			let lname = document.createElement("li");
+			let email = document.createElement("li");
+			// receives response from java -> parse
+			let obj = JSON.parse(xhr.responseText); 
 			
-			let obj = JSON.parse(xhr.responseText);
-			
-			idCol.textContent = obj.jobID;
-			fnameCol.textContent = obj.firName;
-			lnameCol.textContent = obj.lasName;
-			emailCol.textContent = obj.emailAddr;
-			
-			row.appendChild(idCol);
-			row.appendChild(fnameCol);
-			row.appendChild(lnameCol);
-			row.appendChild(emailCol);
-			
-			document.getElementById("hpEmpInfo").appendChild(row);
+			console.log(obj);
+			eid.textContent = obj.jobID;
+			fname.textContent = obj.firName;
+			lname.textContent = obj.lasName;
+			email.textContent = obj.emailAddr;
+
+			document.getElementById("empDeets").appendChild(eid);
+			document.getElementById("empDeets").appendChild(fname);
+			document.getElementById("empDeets").appendChild(lname);
+			document.getElementById("empDeets").appendChild(email);
 		}
 	};
+	
 	xhr.open("get","http://localhost:8085/ExpenseReimbursementSystem/employee-info");
  	xhr.send();
 }
@@ -52,6 +49,9 @@ function getReimbInfo() {
 		if ((xhr.readyState == 4) && (xhr.status == 200)){
 			
 			let obj = JSON.parse(xhr.responseText);	
+
+			let table = document.getElementById("reimbData");
+			clearTable(table);
 			
 			for (var i = 0, l = obj.length; i < l; i++) {
                 var obj1 = obj[i];
@@ -63,6 +63,12 @@ function getReimbInfo() {
 	xhr.open("get","http://localhost:8085/ExpenseReimbursementSystem/employee-reimbursements");
  	xhr.send();
 }
+
+function clearTable(table) {    
+    while(table.rows.length > 0){
+        table.deleteRow(0);
+    }
+ }
 
 function fillEmplInfo(obj1){
 	let row = document.createElement("tr");
@@ -88,22 +94,25 @@ function sendReimbRqst(){
 	console.log("submitted reimbursement request")
 	let rType = document.getElementById("reimbTypeSelect").value;
 	let rCost = document.getElementById("reimbCost").value;
-	let reimbObj = {
+	var reimbObj1 = {
 			reimbType: rType, 
 			reimbCost: rCost
 	};
-	
-	let reimbJSON = JSON.stringify(reimbObj);
-			
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		if ((xhr.readyState == 4) && (xhr.status == 200)){
-			window.location = "http://localhost:8085/ExpenseReimbursementSystem/static/ers_employee.html";
-            }
+	if(reimbObj1.reimbType != null | reimbObj1.reimbCost != 0 | reimbObj1.reimbCost != 0.00){
+		
+		let reimbJSON = JSON.stringify(reimbObj1);
+		
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if ((xhr.readyState == 4) && (xhr.status == 200)){
+				window.location = "http://localhost:8085/ExpenseReimbursementSystem/static/ers_employee.html";
+			}
 		};
-	xhr.open("post","http://localhost:8085/ExpenseReimbursementSystem/employee-submit-reimb");
-	xhr.setRequestHeader("Content-Type", "application/json");
- 	xhr.send(reimbJSON);
+		xhr.open("post","http://localhost:8085/ExpenseReimbursementSystem/employee-submit-reimb");
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(reimbJSON);
+	}
+	
 
 }
 
@@ -113,16 +122,21 @@ function updateInfo() {
 	let eLname = document.getElementById("emplLname").value;
 	let eEmail = document.getElementById("emplEmail").value;
 	let eUname = document.getElementById("emplUname").value;
-	let ePword = document.getElementById("emplPword").value;
 	let emplObj = {
 			firName: eFname, 
 			lasName: eLname, 
 			emailAddr: eEmail, 
-			usrName: eUname, 
-			passWord: ePword, 
+			usrName: eUname 
 	};
 	
 	let emplJSON = JSON.stringify(emplObj);
+	
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if ((xhr.readyState == 4) && (xhr.status == 200)){
+			//window.location = "http://localhost:8085/ExpenseReimbursementSystem/static/ers_employee.html";
+            }
+		};
 			
 	let xhr = new XMLHttpRequest();
 	xhr.open("post","http://localhost:8085/ExpenseReimbursementSystem/employee-update-info");
@@ -130,10 +144,3 @@ function updateInfo() {
 	console.log('JSON being sent');
  	xhr.send(emplJSON);
 }
-
-function logoutUser() {
-	let xhr = new XMLHttpRequest();
-	xhr.open("post","http://localhost:8085/ExpenseReimbursementSystem/logout");
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send();
-};

@@ -48,8 +48,9 @@ public class LoginDelegate {
 	}
 	
 	public void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
+		System.out.println("Session invalidated, proceed to logout and redirect to login page");
 		req.getSession().invalidate();
+		resp.sendRedirect("./static/index.html");
 		
 	}
 }

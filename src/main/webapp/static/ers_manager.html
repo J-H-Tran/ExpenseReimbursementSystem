@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>employee-homepage</title>
+    <title>ERS Mangaer Homepage</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -19,37 +19,44 @@
     tr:hover td {
       background: #fff8b1;
     }
+    td {
+      min-width: 3em; /* the normal 'fixed' width */
+      width: 3em; /* the normal 'fixed' width */
+      max-width: 3em; /* the normal 'fixed' width, to stop the cells expanding */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    ul {
+      list-style-type: none;
+      line-height: 2;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+    }
     </style>
     
   </head>
 
   <body style="padding-top: 50px; background-color: #f5f5f5">
-    <span class="border-bottom" style="height: 3px"><img src="./img/top-cover.jpg" alt="cover-img" style="width: 100%; padding-bottom: 13px;"></span>
+    <img src="./img/top-cover.jpg" alt="cover-img" style="width: 100%; padding-bottom: 13px;">
 <!-- ********************NAVGATION***************************** -->
     <nav class="navbar navbar-fixed-top navbar-inverse flex-column flex-sm-row">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-left"><img src="./img/ers-logo.png" class="img-rounded" style="width: 30px; margin-top: 10px; margin-right: 15px"></a>
-          <span class="navbar-brand" >ERS</span>
+          <span class="navbar-left"><img src="./img/ers-logo.png" class="img-rounded" style="width: 40px; margin-top: 5px; margin-right: 15px"></span>
+          <span class="navbar-brand" > ERS </span>
         </div>
         <ul class="nav navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Manager <span class="sr-only">(current)</span></a>
+            <a class="nav-link"> Manager Homepage<span class="sr-only">(current)</span></a>
           </li>
-          <!-- <li><a href="#resolvedReimb">Jump to Resolved</a></li> -->
-          <!-- <li><a href="#accountInfo">View All Employees</a></li> -->
-          <!-- <li><a href="#" data-toggle="modal" data-target="#resolveReimb">Resolve Reimbursement</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#viewOneRqst">View Request</a></li> -->
-          <!-- <li><a href="#" data-toggle="modal" data-target="#updateInfoModal">Update Account Info</a></li> -->
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-               Options <span class="glyphicon glyphicon-menu-hamburger" style="margin-left: 3px"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Options <span class="glyphicon glyphicon-menu-hamburger" style="margin-left: 3px"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#" data-toggle="modal" data-target="#resolveReimb">Resolve Reimbursement</a></li>
               <li><a href="#" data-toggle="modal" data-target="#viewOneRqst">View Request</a></li>
-              <li><a href="http://localhost:8085/ExpenseReimbursementSystem/static/index.html" id="logoutClick"> Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+              <li><a href="http://localhost:8085/ExpenseReimbursementSystem/logout" id="logoutClick"> Logout <span class="glyphicon glyphicon-log-out" style="margin-left: 3px"></span></a></li>
             </ul>
           </li>
         </ul>
@@ -100,124 +107,187 @@
       </div>
     </div>
     <div class="modal fade" id="resolveReimb" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-      
-           
-              <div class="modal-dialog modal-dialog-centered" style="width: 400px" role="document">
-                <div class="modal-content" > <!-- Modal for submitting a reimbursement request -->
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="modalCenterTitle" style="font-size: 20px">Resolve A Reimbursement</h5>
-                  </div>
-                  <div class="modal-body">
-                    <div class="container-fluid">
-                      <form>
-                        <div class="form-group row">
-                          <label for="reimbID" class="col-sm-4 col-form-label">Reimbursement ID</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" id="reimbID" placeholder="Enter Reimbursement ID">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="reimbRslvSelect" class="col-sm-4 col-form-label">Resolve Status</label>
-                          <div class="col-sm-8">
-                       <select class="form-control" id="reimbRslvSelect">
-                         <option selected>Choose...</option>
-                         <option value="denied">Deny</option>
-                         <option value="approved">Approve</option>
-                       </select>
-                     </div>
-                   </div>
-                 </form>
-               </div>
-             </div>
-             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button id="resolveReimbRqst" type="submit" class="btn btn-primary mb-2">Submit</button>
-             </div>
-           </div>
-         </div>
-       
+	    <div class="modal-dialog modal-dialog-centered" style="width: 400px" role="document">
+	      <div class="modal-content" > <!-- Modal for submitting a reimbursement request -->
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	          <h5 class="modal-title" id="modalCenterTitle" style="font-size: 20px">Resolve A Reimbursement</h5>
+	        </div>
+	        <div class="modal-body">
+	          <div class="container-fluid">
+	            <form action="../resolve-reimb-rqst" method="post">
+	              <div class="form-group row">
+	                <label for="reimbID" class="col-sm-4 col-form-label">Reimbursement ID</label>
+	                <div class="col-sm-8">
+	                  <input name="rID" type="text" class="form-control" id="reimbID" placeholder="Enter Reimbursement ID" required>
+	                </div>
+	              </div>
+	              <div class="form-group row">
+	                <label for="reimbRslvSelect" class="col-sm-4 col-form-label">Resolve Status</label>
+	                <div class="col-sm-8">
+		                <select class="form-control" id="reimbRslvSelect" name="resolv" required>
+		                  <option value="">Choose...</option>
+		                  <option value="denied">Deny</option>
+		                  <option value="approved">Approve</option>
+		                </select>
+		              </div>
+		            </div>
+				        <div class="modal-footer">
+				           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				           <button id="resolveReimbRqst" type="submit" class="btn btn-primary mb-2">Submit</button>
+				        </div>
+			        </form>
+			      </div>
+			    </div>
+			  </div>
+			</div>
     </div>
-
-
 <!-- Body Information -->
 <div class="container-fluid" style="width: 75%">
   <ul class="nav nav-tabs" >
-    <li class="active"><a data-toggle="tab" href="#home">Employee Details</a></li>
-    <li><a data-toggle="tab" href="#menu1">Approved Reimbursements</a></li>
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Employee Details</a></li>
     <li><a data-toggle="tab" href="#menu2">Pending Reimbursement</a></li>
+    <li><a data-toggle="tab" href="#menu3">Resolved Reimbursement</a></li>
   </ul>
-
-    <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
-        <div class="card card-body"> <!-- table for employee information-->
-          <div class="panel">
-            <div class="panel-heading" data-toggle="collapse" data-target="#demo" style="font-size: 18px"></div>
-              <div class="table-responsive">
-               	<table class="table table-hover table-condensed table-responsive" width="100%" id="demo" class="collapse show">
-                  <thead >
-                    <tr>
-                      <th width="25%">Work ID</th>
-                      <th width="25%">First Name</th>
-                      <th width="25%">Last Name</th>
-                      <th width="25%">Email</th>
-                    </tr>
-                  </thead>
-                  <tbody id="mpEmpInfo" >
-                  </tbody>
-                </table>
-              </div>
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <div class="row" style="margin-top: 3px">
+        <div class="card card-body col-sm-4"> <!-- table for employee information-->
+          <div class="panel panel-primary">
+            <div class="panel-heading" data-toggle="collapse" data-target="#demo" style="font-size: 18px">Employees</div>
+              <table class="table table-hover table-condensed table-responsive" style="width:100%" id="demo" class="collapse show">
+              <thead >
+                <tr>
+                  <th style="width:40%">Work ID</th>
+                  <th style="width:60%">Email</th>
+                </tr>
+              </thead>
+              <tbody id="mphEmpInfo" >
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card card-body col-sm-3"> <!-- Pending Rembursement Information -->
+          <div class="panel panel-primary">
+            <div class="panel-heading" style="font-size: 18px">Pending </div>
+              <table class="table table-hover table-condensed table-responsive" style="width: 100%">
+              <thead>
+                <tr>
+                  <th style="width: 50%">Reimb. ID</th>
+                  <th style="width: 50%">Type</th>
+                </tr>
+              </thead>
+              <tbody id="thdataPend">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card card-body col-sm-5" id="resolvedReimb"> <!-- table for employee information-->
+          <div class="panel panel-primary">
+            <div class="panel-heading" style="font-size: 18px">Resolved </div>
+              <table class="table table-hover table-condensed table-responsive" style="width: 100%">
+              <thead>
+                <tr>
+                  <th style="width: 33%">Work ID</th>
+                  <th style="width: 33%">Reimb. ID</th>
+                  <th style="width: 33%">Status</th>
+                </tr>
+              </thead>
+              <tbody id="thdataAppr">
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+	      <div class="row">
+	        <div class="form-group has-feedback" style="width: 200px; float: right; margin-top: 15px">
+	          <input type="text" id="filter1" class="form-control" onkeyup="myFunction1()" placeholder="Filter first name..">
+	          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+	        </div>
+	      </div>
+      <div class="card card-body"> <!-- table for employee information-->
+        <div class="panel">
+          <div class="panel-heading" data-toggle="collapse" data-target="#demo" style="font-size: 18px"></div>
+            <div class="table-responsive">
+              <table id="tEmpl" class="table table-hover table-condensed table-responsive" width="100%" id="demo" class="collapse show">
+              <thead >
+                <tr>
+                  <th width="25%">Work ID</th>
+                  <th width="25%">First Name</th>
+                  <th width="25%">Last Name</th>
+                  <th width="25%">Email</th>
+                </tr>
+              </thead>
+              <tbody id="mpEmpInfo" >
+              </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
       <div id="menu2" class="tab-pane fade">
-        <div class="card card-body"> <!-- Pending Rembursement Information -->
-          <div class="panel">
-            <div class="panel-heading" style="font-size: 18px"></div>
-              <div class="table-responsive">
-                <table class="table table-hover table-condensed table-responsive" width="100%">
-                  <thead>
-                    <tr>
-                      <th width="25%">ID</th>
-                      <th width="25%">Type</th>
-                      <th width="25%">Cost</th>
-                      <th width="25%">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tdataPend">
-                  </tbody>
-                </table>
-              </div>
-          </div>
-        </div>
-      </div>
-    <div id="menu1" class="tab-pane fade">
-	  <div class="row">
-	    <div class="card card-body" id="resolvedReimb"> <!-- table for employee information-->
-	      <div class="panel ">
-	        <div class="panel-heading" style="font-size: 18px"></div>
-	          <div class="table-responsive">
-	            <table class="table table-hover table-condensed table-responsive" width="100%">
-                <thead>
-                  <tr>
-                    <th width="14%">Work ID</th>
-                    <th width="14%">ID</th>
-                    <th width="14%">Type</th>
-                    <th width="14%">Cost</th>
-                    <th width="14%">Status</th>
-                    <th width="14%">Manager</th>
-                    <th width="14%">Name</th>
-                  </tr>
-                </thead>
-	              <tbody id="tdataAppr">
-	              </tbody>
-	            </table>
-	          </div>
+	      <div class="row">
+	        <div class="form-group has-feedback" style="width: 200px; float: right; margin-top: 15px">
+	          <input type="text" id="filter2" class="form-control" onkeyup="myFunction2()" placeholder="Filter type..">
+	          <i class="glyphicon glyphicon-search form-control-feedback"></i>
 	        </div>
 	      </div>
-	    </div>
+	      <div class="card card-body"> <!-- Pending Rembursement Information -->
+	        <div class="panel">
+	          <div class="panel-heading" style="font-size: 18px"></div>
+	            <div class="table-responsive">
+	              <table id="tPending" class="table table-hover table-condensed table-responsive" width="100%">
+                <thead>
+                  <tr>
+                    <th width="25%">ID</th>
+                    <th width="25%">Type</th>
+                    <th width="25%">Cost</th>
+                    <th width="25%">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tdataPend">
+                </tbody>
+	              </table>
+	            </div>
+	          </div>
+	        </div>
+        </div>
+      <div id="menu3" class="tab-pane fade">
+	      <div class="row">
+	        <div class="form-group has-feedback" style="width: 200px; float: right; margin-top: 15px">
+	          <input type="text" id="filter3" class="form-control" onkeyup="myFunction3()" placeholder="Filter approving manager..">
+	          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+	        </div>
+	      </div>
+		  <div class="row">
+		    <div class="card card-body" id="resolvedReimb"> <!-- table for employee information-->
+		      <div class="panel ">
+		        <div class="panel-heading" style="font-size: 18px"></div>
+		        <div class="table-responsive">
+		          <table id="apprReimb"class="table table-hover table-condensed table-responsive" width="100%">
+		            <thead>
+		              <tr>
+		                <th width="14%">Work ID</th>
+		                <th width="14%">ID</th>
+		                <th width="14%">Type</th>
+		                <th width="14%">Cost</th>
+		                <th width="14%">Status</th>
+		                <th width="14%">Manager</th>
+		                <th width="14%">Name</th>
+		              </tr>
+		            </thead>
+		            <tbody id="tdataAppr">
+		            </tbody>
+		          </table>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
     </div>
   </div>
 </div>
