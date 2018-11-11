@@ -6,6 +6,7 @@
 // and Logout					[X]
 
 window.onload = () => {
+	getMngrInfo();
 	getAllEmplInfo();
 	getAllEmplInfoHome();
 	getApprReimb();
@@ -13,6 +14,38 @@ window.onload = () => {
 	getPendReimb();
 	getPendReimbHome();
 	document.getElementById("oneReimbRqst").addEventListener("click", getEmpReimb);
+}
+
+function getMngrInfo() {
+	console.log('Get Manager Info');
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		
+		if ((xhr.readyState == 4) && (xhr.status == 200)){
+			console.log("If statement");
+			//let span = document.createElement("span");
+			//let eid = document.createElement("li");
+			let fname = document.createElement("span");
+			//let lname = document.createElement("li");
+			//let email = document.createElement("li");
+			// receives response from java -> parse
+			let obj = JSON.parse(xhr.responseText); 
+			
+			console.log(obj);
+			//eid.textContent = obj.jobID;
+			fname.textContent = obj.firName;
+			//lname.textContent = obj.lasName;
+			//email.textContent = obj.emailAddr;
+
+			//document.getElementById("welcomeMngr").appendChild(eid);
+			document.getElementById("welcomeMngr").appendChild(fname);
+			//document.getElementById("empDeets").appendChild(lname);
+			//document.getElementById("empDeets").appendChild(email);
+		}
+	};
+	
+	xhr.open("get","http://localhost:8085/ExpenseReimbursementSystem/employee-info");
+ 	xhr.send();
 }
 
 function getAllEmplInfo() {
@@ -109,13 +142,7 @@ function getApprReimb() {
  	xhr.send();
 }
 
-function clearTable(table) {    
-    while(table.rows.length > 0){
-        table.deleteRow(0);
-    }
- }
-
-function fillApprReimbInfo(obj2){
+function fillApprReimbInfo(obj2) {
 	let row = document.createElement("tr");
 	let eJobCol = document.createElement("td");
 	let ridCol = document.createElement("td");
@@ -152,6 +179,9 @@ function getApprReimbHome() {
 			
 			let obj = JSON.parse(xhr.responseText);	
 			
+			let table = document.getElementById("thdataAppr");
+			clearTable(table);
+			
 			for (var i = 0, l = obj.length; i < l; i++) {
                 var obj2 = obj[i];
                 fillApprReimbInfoHome(obj2);
@@ -186,6 +216,9 @@ function getPendReimb() {
 		if ((xhr.readyState == 4) && (xhr.status == 200)){
 			
 			let obj = JSON.parse(xhr.responseText);	
+			
+			let table = document.getElementById("tdataPend");
+			clearTable(table);
 			
 			for (var i = 0, l = obj.length; i < l; i++) {
                 var obj3 = obj[i];
@@ -224,6 +257,9 @@ function getPendReimbHome() {
 		if ((xhr.readyState == 4) && (xhr.status == 200)){
 			
 			let obj = JSON.parse(xhr.responseText);	
+			
+			let table = document.getElementById("thdataPend");
+			clearTable(table);
 			
 			for (var i = 0, l = obj.length; i < l; i++) {
                 var obj3 = obj[i];
@@ -327,6 +363,12 @@ function fillAllReimbInfo(obj4){
 	row.appendChild(rStatus);
 	
 	document.getElementById("tFoundPend").appendChild(row);
+}
+
+function clearTable(table) {    
+    while(table.rows.length > 0){
+        table.deleteRow(0);
+    }
 }
 
 function myFunction1() {

@@ -38,8 +38,8 @@ function getEmplInfo() {
 			
 			document.getElementById("emplFname").value = obj.firName;
 			document.getElementById("emplLname").value = obj.lasName;
-			document.getElementById("emplEmail").value = obj.emailAddr;
-			document.getElementById("emplUname").value = obj.usrName;
+			document.getElementById("emplEmail").placeholder = obj.emailAddr;
+			document.getElementById("emplUname").placeholder = obj.usrName;
 		}
 	};
 	

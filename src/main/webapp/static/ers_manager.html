@@ -32,6 +32,11 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 17px;
     }
+    .welcomeMngr {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 25px;
+      margin-bottom: 15px;
+    }
     </style>
     
   </head>
@@ -62,6 +67,13 @@
         </ul>
       </div>
     </nav>
+    <div class="row col-sm-offset-1">
+      <div class="welcomeMngr">
+			  <div id="welcomeMngr" >
+			    <span>Hello Manager, </span>
+			  </div>
+      </div>
+		</div>
 <!-- **********************************Modals************************************** -->
     <div class="modal fade" id="viewOneRqst" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" style="width: 450px" role="document">
@@ -145,6 +157,7 @@
 			</div>
     </div>
 <!-- Body Information -->
+
 <div class="container-fluid" style="width: 75%">
   <ul class="nav nav-tabs" >
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
@@ -259,8 +272,8 @@
         </div>
       <div id="menu3" class="tab-pane fade">
 	      <div class="row">
-	        <div class="form-group has-feedback" style="width: 200px; float: right; margin-top: 15px">
-	          <input type="text" id="filter3" class="form-control" onkeyup="myFunction3()" placeholder="Filter approving manager..">
+	        <div class="form-group has-feedback" style="width: 220px; float: right; margin-top: 15px">
+	          <input type="text" id="filter3" class="form-control" onkeyup="myFunction3()" placeholder="Filter manager first name..">
 	          <i class="glyphicon glyphicon-search form-control-feedback"></i>
 	        </div>
 	      </div>
@@ -292,6 +305,6 @@
   </div>
 </div>
 <!-- SCRIPTS -->
-    <script type="text/javascript"src="./js/ers_manager.js"></script>
+    <script type="text/javascript"src="./js/manager.js"></script>
   </body>
 </html>
